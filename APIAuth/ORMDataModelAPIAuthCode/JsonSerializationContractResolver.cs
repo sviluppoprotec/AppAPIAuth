@@ -57,6 +57,23 @@ namespace APIAuth.Database
         }
     }
 }
+
+//namespace Microsoft.Extensions.DependencyInjection
+//{
+//    public static class EAMS_OL_PAJsonMvcBuilderExtensions
+//    {
+//        public static IMvcBuilder AddEAMS_OL_PAJsonOptions(this IMvcBuilder builder, Action<EAMS_OL_PAJsonSerializationContractResolver> setupAction = null)
+//        {
+//            return builder.AddJsonOptions(opt =>
+//            {
+//                var resolver = new EAMS_OL_PAJsonSerializationContractResolver();
+//                opt.SerializerSettings.ContractResolver = resolver;
+//                opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+//                setupAction?.Invoke(resolver);
+//            });
+//        }
+//    }
+//}
 namespace Microsoft.Extensions.DependencyInjection
 {
     public static class DatabaseJsonMvcBuilderExtensions
@@ -66,8 +83,8 @@ namespace Microsoft.Extensions.DependencyInjection
             return builder.AddJsonOptions(opt =>
             {
                 var resolver = new DatabaseJsonSerializationContractResolver();
-                opt.SerializerSettings.ContractResolver = resolver;
-                opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                //opt.JsonSerializerOptions.SerializerSettings.ContractResolver = resolver;
+                //opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 setupAction?.Invoke(resolver);
             });
         }

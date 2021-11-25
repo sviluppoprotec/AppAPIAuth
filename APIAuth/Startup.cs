@@ -35,7 +35,7 @@ namespace APIAuth
             // da qui nuovo
             Configurazione.Stringaconnessione = Configuration.GetConnectionString("ConnectionString");
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0).AddDatabaseJsonOptions();   //.Add_APISIGAS_JsonOptions(); //  .AddEAMS_OL_PAJsonOptions();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddDatabaseJsonOptions();   //.Add_APISIGAS_JsonOptions(); //  .AddEAMS_OL_PAJsonOptions();
             // .AddDxSampleModelJsonOptions();
             services.AddCors();
             services.AddXpoDefaultUnitOfWork(true, (DataLayerOptionsBuilder options) =>
