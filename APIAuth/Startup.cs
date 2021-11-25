@@ -70,7 +70,7 @@ namespace APIAuth
                     {
                         Name = "Protec srl",
                         Email = "protec@protecsrl.biz",
-                        Url = "https://twitter.com/spboyer"
+                        Url = "https://protecsrl.biz"
                     };
                     document.Info.License = new NSwag.OpenApiLicense
                     {
