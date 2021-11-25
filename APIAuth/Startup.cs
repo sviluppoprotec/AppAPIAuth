@@ -62,26 +62,27 @@ namespace APIAuth
 
                 configure.PostProcess = document =>
                 {
-                    document.Info.Version = "V 19.02.1";
-                    document.Info.Title = "EAMS WEB API - INTERFACCIA TT";
-                    document.Info.Description = "Gestione Interventi di Lavoro e Aggiornamento Stati Avanzamento Interventi di Lavoro";
-                    document.Info.TermsOfService = "IT-BST-Pa  BToT - Engie Servizi SPA";
+                    document.Info.Version = "V 21.11.1";
+                    document.Info.Title = "Protec Web API";
+                    document.Info.Description = "";
+                    document.Info.TermsOfService = "Protec srl";
                     document.Info.Contact = new NSwag.OpenApiContact
                     {
-                        Name = "Engie Servizi SPA",
-                        Email = "alessandro.giuli@engie.com",
+                        Name = "Protec srl",
+                        Email = "protec@protecsrl.biz",
                         Url = "https://twitter.com/spboyer"
                     };
                     document.Info.License = new NSwag.OpenApiLicense
                     {
                         Name = "Use under LICX",
-                        Url = "https://eams.engie.it/license"
+                        Url = "https://protecsrl.biz"
                     };
                     document.BasePath = "/"; //PlatformServices.Default.Application.ApplicationBasePath;
-                    document.Host = "http://eams.engie.it/";
+
+                    document.Host = "http://q9czx8w47v22.protecsrl.biz/";
                     NSwag.OpenApiServer _Server = new NSwag.OpenApiServer
                     {
-                        Url = "http://eams.engie.it", //" https://development.gigantic-server.com/v1 ",
+                        Url = "http://q9czx8w47v22.protecsrl.biz", //" https://development.gigantic-server.com/v1 ",
                         Description = " Server di sviluppo "
                     };
                     document.Servers.Add(_Server);
