@@ -1,0 +1,256 @@
+﻿  //    List<APISMS_CL01> qRegistroSpedizioniDett = uw.Query<APISMS_CL01>()
+                        //    .Where(x => x.AvvisiSpedizioni != null)
+                        //    .Where(x => x.AvvisiSpedizioni.Oid == id_avvisi)
+                        //    .Where(x => x.DataInvio == null)
+                        //    .OrderBy(x => x.Oid)          //.Where(x => x.Oid == 242650)      //.Where(x => !string.IsNullOrEmpty(x.EmailDest)) 242650
+
+
+                        //    .Select(x =>
+                        //    new LInvioEmail()
+                        //    {
+                        //        IdRegSpedizione = x.Oid,
+                        //        Id = x.AvvisiSpedizioni.Oid,
+                        //        RegRdL = x.RegistroRdL.Oid,
+                        //        OggettoMail = x.Oggetto,
+                        //        CorpoMail = x.Corpo,
+                        //        DestinatarioEmail = x.EmailDest,
+                        //        DestinatarioSms = x.SMSDest,
+                        //        Utente = x.AvvisiSpedizioni.Utente,
+                        //        Abilitato = x.AvvisiSpedizioni.Abilitato,
+                        //        DataAggiornamento = x.DataOra
+                        //    }
+                        //).Distinct().ToList<LInvioEmail>();
+
+                        //bool error = false;
+                        //foreach (LInvioEmail item in qRegistroSpedizioniDett)
+                        //{
+                        //    SpediscieMail = false;
+                        //    AvvisiSpedizioni_Id = item.Id;
+                        //    string SCORPO = item.CorpoMail;
+                        //    string SOggetto = item.OggettoMail;
+                        //    string SDestinatarioEmail = item.DestinatarioEmail;
+                        //    string SDestinatarioSms = item.DestinatarioSms;
+                        //    string DB_Sessione = "";
+                        //    try
+                        //    {
+                        //        objDCDatiSMSMail.Add(new CAMS.Module.DBMail.DCDatiSMSMail()
+                        //        {
+                        //            Oid = Guid.NewGuid(),
+                        //            AzioneSpedizione = 0, // mail oppure sms oppure sms+mail    <font color="blue">testo blu</font>
+                        //            Body = SCORPO,
+                        //            IndirizzoMail = SDestinatarioEmail,
+                        //            IndirizzoSMS = SDestinatarioSms,
+                        //            //NomeCognome = string.Format("{0} {1}", item.ReportPeriodici.Destinatari.Nome, item.ReportPeriodici.Destinatari.Cognome),
+                        //            Subject = SOggetto,
+                        //            TipoAzioneMail = "INVIO MAIL RDL/SMS"
+                        //        });
+                        //        ///  ççççççççççççççççççççççç ççççççççççççççç@@@@@@@@@@@@@@@@@@   modificare data invio con data lancio su tutto .......................#####################################
+                        //        //Console.WriteLine(GetSqSelectXPOObject("REGSPEDIZIONIDETT", "DATAINVIO", item.IdRegSpedizione));DATAINVIO DATAORALANCIO
+                        //        DB_Sessione = (string)uw.ExecuteScalar(GetSqSelectXPOObject("REGSPEDIZIONIDETT", "FILEMAIL", item.IdRegSpedizione));
+                        //        if (string.IsNullOrEmpty(DB_Sessione))
+                        //        {
+                        //            //RegSpedizDett.DataInvio= DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss");  
+                        //            int nrRowsAffected = 0;
+                        //            if (item.IdRegSpedizione > 0)
+                        //            {
+                        //                //Console.WriteLine(GetSqlUpdateXPOObject("REGSPEDIZIONIDETT", "DATAINVIO", sessione_ID, item.IdRegSpedizione)); CONVERT(datetime,'2020/08/07 13:15:56.256',121 ) sessione_ID
+                        //                nrRowsAffected = uw.ExecuteNonQuery(GetSqlUpdateXPOObject("REGSPEDIZIONIDETT", str_dataSessione, sessione_ID, item.IdRegSpedizione));
+
+                        //                if (nrRowsAffected == 0)
+                        //                    SpediscieMail = false;// non spedisce per ora
+                        //                else
+                        //                {
+                        //                    System.Threading.Thread.Sleep(100); // asptto per essere sicuro che solo l'unico che sono su questo ciclo di update.
+
+                        //                    DB_Sessione = (string)uw.ExecuteScalar(GetSqSelectXPOObject("REGSPEDIZIONIDETT", "FILEMAIL", item.IdRegSpedizione));
+                        //                    if (!string.IsNullOrEmpty(DB_Sessione) && sessione_ID == DB_Sessione)
+                        //                        SpediscieMail = true;
+                        //                }
+                        //            }
+                        //        }
+                        //    }
+                        //    catch (Exception ex)
+                        //    {
+                        //        string corspo = string.Format("Data {0}, per l AvvisoSpedizione: {1}, RegistrospedizioneDettagio: {2}, messaggio {3}",
+                        //             DateTime.Now.ToString(), item.Id, item.IdRegSpedizione, ex.Message);
+                        //        int log_ID = AddLog(CurentUser, "ERRORE run RunEmailSms FALLITO DENTRO IL CICLO REGISTRO PERDIZIONI ", corspo, sessione_ID);
+                        //        // annullo data invio
+                        //        RegistroSpedizioniDett registroSpedizione = uw.GetObjectByKey<RegistroSpedizioniDett>(item.IdRegSpedizione, true);
+                        //        if (registroSpedizione.FileMail == sessione_ID)
+                        //        {
+                        //            registroSpedizione.DataOraLancio = DateTime.MinValue;
+                        //            registroSpedizione.FileMail = null;
+                        //            registroSpedizione.Save();
+                        //            uw.CommitChanges();
+                        //        }
+                        //        //************************************
+                        //        DataInizioTransazione = DateTime.Now;
+                        //        tuttiSpeditiSenzaErrori = false;
+                        //        SpediscieMail = false;
+                        //    }
+
+                        //    if (SpediscieMail)
+                        //    {
+                        //        #region SPEDISCI MAIL
+                        //        string MessaggioInvio = "";
+                        //        try
+                        //        {
+                        //            using (CAMSInvioMailCNAlias.SetMail inv = new CAMSInvioMailCNAlias.SetMail())
+                        //            {
+                        //                SendResult smsResult = null;
+                        //                SetVarSessione.OracleConnString = Connessione;
+                        //                SetVarSessione.PhysicalPathSito = AppPath;
+                        //                //string datainvio = uw.FindObject<RegistroSpedizioniDett>(CriteriaOperator.Parse("Oid = ?", item.IdRegSpedizione)).DataInvio;
+                        //                DB_Sessione = (string)uw.ExecuteScalar(GetSqSelectXPOObject("REGSPEDIZIONIDETT", "FILEMAIL", item.IdRegSpedizione));
+                        //                #region INVIO DEGLI email
+                        //                if (!string.IsNullOrEmpty(item.DestinatarioEmail))
+                        //                {
+                        //                    if (!string.IsNullOrEmpty(DB_Sessione) && sessione_ID == DB_Sessione)
+                        //                        MessaggioInvio = inv.InviaAvvisiMAILRdL(SetVarSessione.OracleConnString, "Admin", item.RegRdL, objDCDatiSMSMail);
+
+                        //                    if (!string.IsNullOrEmpty(MessaggioInvio) && inv.EsitoInvio != CAMS.Module.Classi.EsitoInvioMailSMS.Inviata)
+                        //                        tuttiSpeditiSenzaErrori = false;
+                        //                }
+                        //                #endregion
+                        //                System.Threading.Thread.Sleep(100);
+                        //                #region INVIO DEGLI SMS
+                        //                if (!string.IsNullOrEmpty(item.DestinatarioSms))
+                        //                {
+                        //                    if (!string.IsNullOrEmpty(DB_Sessione) && sessione_ID == DB_Sessione)
+                        //                    {
+                        //                        System.Threading.Thread.Sleep(600);
+
+                        //                        smsResult = inv.InviaAvvisiSMSRdL(SetVarSessione.OracleConnString, "Admin", item.RegRdL, objDCDatiSMSMail);
+                        //                    }
+                        //                    if (!string.IsNullOrEmpty(inv.EsitoInvio.ToString()) && inv.EsitoInvio != CAMS.Module.Classi.EsitoInvioMailSMS.CONSEGNATO_SMSGen)/// @@@@@@modificare con la stringa che restituisce in caso di mancata send meil
+                        //                        tuttiSpeditiSenzaErrori = false;
+                        //                }
+                        //                #endregion
+                        //                #region aggiornamento registro spedizioni UNO A UNO
+                        //                RegistroSpedizioniDett registroSpedizione = uw.GetObjectByKey<RegistroSpedizioniDett>(item.IdRegSpedizione, true);  //  con tue direttamente dal datastore
+                        //                registroSpedizione.EsitoInvioMailSMS = inv.EsitoInvio;
+                        //                registroSpedizione.DescrizioneEsito = inv.EsitoInvio.ToString();
+                        //                registroSpedizione.DataInvio = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss");
+                        //                if (smsResult != null)
+                        //                {
+                        //                    registroSpedizione.SMSID = smsResult.OrderId;
+                        //                    registroSpedizione.NRSMS = smsResult.CountSentSMS;
+                        //                }
+                        //                //registroSpedizione.FileMail = null;                                       
+                        //                registroSpedizione.Save();
+                        //                uw.CommitChanges();
+                        //                #endregion
+
+                        //                #region  aggiornamento registro transazioni UNO A UNO
+                        //                // aggiorno il reggistro transazioni della avenuta transazione
+                        //                RegistroTransazioniDettaglio Trandett = new RegistroTransazioniDettaglio(uw);
+                        //                Trandett.RegistroTransazioni = tran;
+                        //                string descrizione = string.Format("Invio Email/Sms RegRdl: {0}; idAvvisoSpedizione: {1}; IdRegSpedizione: {2}",
+                        //                    item.RegRdL.ToString(),
+                        //                    item.Id,
+                        //                    item.IdRegSpedizione.ToString()
+                        //                    );
+                        //                Trandett.Descrizione = descrizione;
+                        //                Console.WriteLine(descrizione);
+                        //                Trandett.DataInizio = DataInizioTransazione;
+                        //                Trandett.DataFine = DateTime.Now;
+                        //                Trandett.StatoElaborazioneJob = StatoElaborazioneJob.EseguitoExec;
+                        //                Trandett.Save();
+                        //                uw.CommitChanges();
+                        //                #endregion
+                        //            }
+                        //        }
+                        //        catch (Exception ex)  // fallito spedizione mail
+                        //        {
+                        //            //error = true;
+                        //            Console.WriteLine("Titolo {0}; MessaggioInvio.{1}", "Trasmissione Avviso non Eseguita!!", ex.Message);
+                        //            string corspo = string.Format("Data {0}, per l AvvisoSpedizione: {1}, RegistrospedizioneDettagio: {2}, messaggio {3}",
+                        //                DateTime.Now.ToString(), item.Id, item.IdRegSpedizione, ex.Message);
+
+                        //            AddLog(CurentUser, "ERRORE run RunEmailSms FALLITO SPEDIZIONE MAIL ", corspo, sessione_ID);
+
+                        //            AvvisiSpedizioni AvvisiSpedizionicorr = uw.GetObjectByKey<AvvisiSpedizioni>(item.Id, true);
+                        //            AvvisiSpedizionicorr.Status = myTaskStatus.FallitoInvio;
+                        //            AvvisiSpedizionicorr.Save();
+                        //            uw.CommitChanges();
+                        //            // annullo data invio
+                        //            RegistroSpedizioniDett registroSpedizione = uw.GetObjectByKey<RegistroSpedizioniDett>(item.IdRegSpedizione, true);
+                        //            if (registroSpedizione.FileMail == sessione_ID)
+                        //            {
+                        //                registroSpedizione.DataInvio = null;
+                        //                registroSpedizione.Save();
+                        //                uw.CommitChanges();
+                        //            }
+                        //            // aggiorno il reggistro transazioni della avenuta transazione
+                        //            RegistroTransazioniDettaglio Trandett = new RegistroTransazioniDettaglio(uw);
+                        //            Trandett.RegistroTransazioni = tran;
+                        //            string descrizione = string.Format("Invio Email/Sms RegRdl: {0}; idAvvisoSpedizione: {1}; IdRegSpedizione: {2}",
+                        //                item.RegRdL.ToString(),
+                        //                item.Id,
+                        //                item.IdRegSpedizione.ToString()
+                        //                );
+                        //            Trandett.Descrizione = descrizione;
+                        //            Console.WriteLine(descrizione);
+                        //            Trandett.DataInizio = DataInizioTransazione;
+                        //            Trandett.DataFine = DateTime.Now;
+                        //            Trandett.StatoElaborazioneJob = StatoElaborazioneJob.EseguitoExec;
+                        //            Trandett.Save();
+                        //            uw.CommitChanges();
+
+                        //        }
+                        //        objDCDatiSMSMail.Clear();
+                        //        #endregion
+                        //    }  /// fine spedisci mail
+                        //    else
+                        //    {
+                        //        string corspo = string.Format("Data {0}, AvvisoSpedizione: {1}, RegistrospedizioneDettagio: {2}, VALORE SpediscieMail = FALSE",
+                        //                                        DateTime.Now.ToString(), item.Id, item.IdRegSpedizione);
+                        //        int log_ID = AddLog(CurentUser, "Avvertimento su run RunEmailSms email già spedita Verificare", corspo, sessione_ID);
+
+                        //    }
+                        //    //MODIFICA AVVISO SPEDIZIONE STATUS SE ERROR = FALSE
+                        //    //RegistroTransazioniDettaglio Trandett = new RegistroTransazioniDettaglio(uw);
+                        //    //Trandett.RegistroTransazioni = tran;
+                        //    //string descrizione = string.Format("Invio Email/Sms RegRdl: {0}; idAvvisoSpedizione: {1}; IdRegSpedizione: {2}",
+                        //    //    item.RegRdL.ToString(),
+                        //    //    item.Id,
+                        //    //    item.IdRegSpedizione.ToString()
+                        //    //    );
+                        //    //Trandett.Descrizione = descrizione;
+                        //    //Console.WriteLine(descrizione);
+                        //    //Trandett.DataInizio = DataInizioTransazione;
+                        //    //Trandett.DataFine = DateTime.Now;
+                        //    //Trandett.StatoElaborazioneJob = StatoElaborazioneJob.EseguitoExec;
+                        //    //Trandett.Save();
+                        //    //uw.CommitChanges();
+
+                        //    DataInizioTransazione = DateTime.Now;
+                        //}  // fine giro si registro spedizioni dettaglio
+
+                        //if (tuttiSpeditiSenzaErrori) // tutte spedizioni corrette
+                        //{
+                        //    AvvisiSpedizioni AvvisiSpedizionicorr = uw.GetObjectByKey<AvvisiSpedizioni>(AvvisiSpedizioni_Id, true);
+                        //    AvvisiSpedizionicorr.Status = myTaskStatus.Inviato;
+                        //    AvvisiSpedizionicorr.AlarmTime = null;
+                        //    AvvisiSpedizionicorr.Save();
+                        //    uw.CommitChanges();
+                        //}
+                        //else // alcune non sono andate spedite
+                        //{
+                        //    AvvisiSpedizioni avvSpedizionicorr = uw.GetObjectByKey<AvvisiSpedizioni>(AvvisiSpedizioni_Id, true);
+                        //    switch (avvSpedizionicorr.Status)
+                        //    {
+                        //        case myTaskStatus.Predisposto:
+                        //            avvSpedizionicorr.Status = myTaskStatus.FallitoInvio;
+                        //            break;
+                        //        case myTaskStatus.FallitoInvio:
+                        //            avvSpedizionicorr.Status = myTaskStatus.FallitoUlterioreInvio;
+                        //            break;
+                        //        default:
+                        //            avvSpedizionicorr.Status = myTaskStatus.FallitoUlterioreInvio;
+                        //            break;
+                        //    }
+                        //    avvSpedizionicorr.DataAggiornamento = DateTime.Now;
+                        //    avvSpedizionicorr.Save();
+                        //    uw.CommitChanges();
+                        //}

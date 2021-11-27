@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataBaseObjectModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9ed55d85-7e6e-47f3-8689-12a165e2d774" namespace="ConsoleNotificheAPI.Database" dataBaseShemaInfo="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" generateConnectionHelper="true" generateStoredProcedures="false" fieldNameCase="Unchanged" generateDefaultConstructors="false" useNameOf="true" connectionStringName="ConnectionString" createdInVersion="20.2.8.0" generateJsonSerializationContractResolver="false" generateServiceCollectionExtensions="true" lastModifiedInVersion="20.2.8.0" name="Database" xmlns="http://schemas.microsoft.com/dsltools/ORMDataModel">
+  <comments>
+    <dataBaseObjectModelHasComments Id="3bf2218e-54ce-470a-9f84-ebd5f6a5b65c">
+      <comment Id="43cd6af7-fa29-4572-967a-1531a5f19f4c" text="Cannot generate a persistent property for the 'OptimisticLockField' column. In XPO, 'OptimisticLockField' is the reserved system field that should not be implemented in your code. Values in this column will be handled internally.;&#xD;&#xA;Cannot generate a persistent property for the 'GCRecord' column. In XPO, 'GCRecord' is the reserved system field that should not be implemented in your code. Values in this column will be handled internally.;&#xD;&#xA;The 'OID' property is not mapped, because it is exposed by a parent.;&#xD;&#xA;The reference to the 'GCRecord' property from the 'iGCRecord_APIAUT' index is ignored.;&#xD;&#xA;The reference to the 'OID' property from the 'PK_APIAUT' index is ignored." name="APIAUTComment">
+        <subjects>
+          <commentReferencesSubjects Id="396f0830-ed49-4343-826e-3c2222f925e6">
+            <xpObjectMoniker Id="8ae9d965-0aad-4213-9f10-75fe43546cc9" />
+          </commentReferencesSubjects>
+        </subjects>
+      </comment>
+    </dataBaseObjectModelHasComments>
+    <dataBaseObjectModelHasComments Id="91fac466-e65d-47d1-ae6b-f27d747e5da4">
+      <comment Id="b9bda036-c376-4bbc-b789-d03bf788e8ec" text="Cannot generate a persistent property for the 'OptimisticLockField' column. In XPO, 'OptimisticLockField' is the reserved system field that should not be implemented in your code. Values in this column will be handled internally.;&#xD;&#xA;Cannot generate a persistent property for the 'GCRecord' column. In XPO, 'GCRecord' is the reserved system field that should not be implemented in your code. Values in this column will be handled internally.;&#xD;&#xA;The 'OID' property is not mapped, because it is exposed by a parent.;&#xD;&#xA;The reference to the 'GCRecord' property from the 'iGCRecord_APISMS_CL01' index is ignored.;&#xD;&#xA;The reference to the 'OID' property from the 'PK_APISMS_CL01' index is ignored." name="APISMS_CL01Comment">
+        <subjects>
+          <commentReferencesSubjects Id="b3dca34b-825f-44c9-a2db-89d26fe29455">
+            <xpObjectMoniker Id="2bd3abf0-b92f-46c2-acd7-abeea8edf7c8" />
+          </commentReferencesSubjects>
+        </subjects>
+      </comment>
+    </dataBaseObjectModelHasComments>
+  </comments>
+  <classes>
+    <dataBaseObjectModelHasClasses Id="29813de5-8b4d-4593-9b9d-b2b05b957ed4">
+      <xpObject Id="8ae9d965-0aad-4213-9f10-75fe43546cc9" name="APIAUT" baseClass="XPObject" userFileName="APIAUT" designerFileName="APIAUT.Designer" className="APIAUT" initialName="APIAUT" persistent="APIAUT" virtualName="APIAUT">
+        <fields>
+          <generalXpObjectHasFields Id="0042ec1e-8121-4f48-8371-d2c7c477d9f5">
+            <field Id="e8eee0b1-7d94-4526-91d1-402569c69ad4" name="utente" initialName="utente" persistent="utente" virtualColumnType="String" delayedUpdateModifiedOnly="false" size="50" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="34ae0e1d-fa2b-4e3c-b2fe-90bd6b6b1653">
+            <field Id="e361b82d-7ee4-4363-b443-f893e73163e7" name="password" initialName="password" persistent="password" virtualColumnType="String" delayedUpdateModifiedOnly="false" size="50" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="42af7e47-9cf0-4bb7-9798-c712b24f1347">
+            <field Id="b974e530-2b34-4bd4-9490-3b637de78867" name="sistema" initialName="sistema" persistent="sistema" virtualColumnType="String" delayedUpdateModifiedOnly="false" size="50" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="2cc54bcd-5b79-4bad-a88a-96c42c7785ec">
+            <field Id="5ec7d30c-e0c2-4210-b675-693e2556bcd4" name="token" columnType="Guid" initialName="token" persistent="token" virtualColumnType="Guid" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+        </fields>
+      </xpObject>
+    </dataBaseObjectModelHasClasses>
+    <dataBaseObjectModelHasClasses Id="1945444b-5b4e-4961-9f00-795442b63248">
+      <xpObject Id="2bd3abf0-b92f-46c2-acd7-abeea8edf7c8" name="APISMS_CL01" baseClass="XPObject" userFileName="APISMS_CL01" designerFileName="APISMS_CL01.Designer" className="APISMS_CL01" initialName="APISMS_CL01" persistent="APISMS_CL01" virtualName="APISMS_CL01">
+        <fields>
+          <generalXpObjectHasFields Id="389297fa-2c9e-4eb8-9fbf-549dc1364ee5">
+            <field Id="55f6aefa-4303-49cd-90ed-8cb32a2b859a" name="ID" columnType="Int64" initialName="ID" persistent="ID" virtualColumnType="Int64" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="df19e19c-2913-4838-a3ee-8f8f35139570">
+            <field Id="adc7cabe-2ee6-46d3-82bc-0dca2310121d" name="REGRDL" columnType="Int32" initialName="REGRDL" persistent="REGRDL" virtualColumnType="Int32" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="e377db7b-a56e-441e-84c2-f27c1caf6798">
+            <field Id="585e9f7c-1fc7-42e9-95df-2259af374c05" name="TOKEN" columnType="Guid" initialName="TOKEN" persistent="TOKEN" virtualColumnType="Guid" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="f005245d-d7d2-4762-a108-07b14e51c59c">
+            <field Id="e2a1ce10-f685-4d36-bea4-aaa8af14a808" name="TIPOLOGIASMS" initialName="TIPOLOGIASMS" persistent="TIPOLOGIASMS" virtualColumnType="String" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="55f2843e-1c74-4221-9fce-c5c5fc2efe12">
+            <field Id="891bc5be-1685-41bb-8abc-d28308a6168a" name="DESTSMS" initialName="DESTSMS" persistent="DESTSMS" virtualColumnType="String" delayedUpdateModifiedOnly="false" size="4000" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="6fd4e85a-aa11-49ed-83a9-643579f173b9">
+            <field Id="f793e005-de07-4126-a110-4329403f5d17" name="UTENTE" initialName="UTENTE" persistent="UTENTE" virtualColumnType="String" delayedUpdateModifiedOnly="false" size="50" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="47d2528e-87cc-47e8-8ded-0a6d7c44c9d0">
+            <field Id="baf9f5d6-d52f-4229-9302-2e01c314ba56" name="CORPOSMS" initialName="CORPOSMS" persistent="CORPOSMS" virtualColumnType="String" delayedUpdateModifiedOnly="false" size="4000" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="1be263f7-fba0-4442-acc1-d10fc4083b99">
+            <field Id="2c46f2e5-fa59-4983-96e8-0e7a5d2ba2d6" name="SISTEMA" initialName="SISTEMA" persistent="SISTEMA" virtualColumnType="String" delayedUpdateModifiedOnly="false" size="25" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="fb451269-6ae0-46e8-a95c-28f4770c0060">
+            <field Id="14268ff4-94dc-4f30-bef5-bba5dbc852fa" name="DATAORA_ULTIMOGET" columnType="DateTime" initialName="DATAORA_ULTIMOGET" persistent="DATAORA_ULTIMOGET" virtualColumnType="DateTime" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="cb334107-d4ae-4e7a-9436-f9e2ebec55bb">
+            <field Id="b7407125-61fa-474b-a17b-35bc2c8ed8d4" name="DATAORA_ULTIMOPUT" columnType="DateTime" initialName="DATAORA_ULTIMOPUT" persistent="DATAORA_ULTIMOPUT" virtualColumnType="DateTime" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="b212dd46-0b6a-469a-a01b-0b70ad7fd133">
+            <field Id="76f89296-f34d-404b-9a98-b415b0c938e6" name="DATAORAUPDATE" columnType="DateTime" initialName="DATAORAUPDATE" persistent="DATAORAUPDATE" virtualColumnType="DateTime" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="c981b960-1d29-497e-9468-ab26f11e0a63">
+            <field Id="d51e0046-7582-4a14-a58a-fefea69fed29" name="ISRECEIVED" columnType="Boolean" initialName="ISRECEIVED" persistent="ISRECEIVED" virtualColumnType="Boolean" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="23832d56-9ec4-427b-bb13-25c17b0bfe13">
+            <field Id="141c8368-65c7-4e83-9ede-c8000c3d6edf" name="ISSENT" columnType="Boolean" initialName="ISSENT" persistent="ISSENT" virtualColumnType="Boolean" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="817dd76b-e745-4882-acd4-e68ca6b8f937">
+            <field Id="e039aa75-f597-4446-a944-484fd30a39b9" name="ISCLOSED" columnType="Boolean" initialName="ISCLOSED" persistent="ISCLOSED" virtualColumnType="Boolean" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="35130b47-40e7-4710-bcd4-06cb5b55717a">
+            <field Id="89fb5740-bc9c-4986-aea4-f7be32d50bef" name="ESITO" columnType="Int32" initialName="ESITO" persistent="ESITO" virtualColumnType="Int32" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="208c7e1f-8952-40fc-ba8b-e8c37b7f320c">
+            <field Id="9142f64a-f8a4-4703-b19f-7d6431f94022" name="CLIENTE" initialName="CLIENTE" persistent="CLIENTE" virtualColumnType="String" delayedUpdateModifiedOnly="false" size="12" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="8749f732-674f-4c5b-a7c1-9c572fb721ed">
+            <field Id="0f9b93ba-2ed2-48c4-9c2d-b90bb227517b" name="STATO" columnType="Int32" initialName="STATO" persistent="STATO" virtualColumnType="Int32" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="fbb1a6f6-77d9-43fc-91a5-4b1bfe240021">
+            <field Id="2b0b670c-2c0a-4edc-a5db-20e2c245e1bb" name="QUALITAINVIO" columnType="Int32" initialName="QUALITAINVIO" persistent="QUALITAINVIO" virtualColumnType="Int32" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="ceeb190c-4f45-4588-9649-da1c2753ead6">
+            <field Id="c55971bf-f892-4cd8-90af-de9237fb0773" name="TIPOINVIO" columnType="Int32" initialName="TIPOINVIO" persistent="TIPOINVIO" virtualColumnType="Int32" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="5cc904a2-7d3a-4c18-b56d-d1f31d5752cc">
+            <field Id="bd814084-e761-4514-86c0-57b340a29f34" name="NRINVIO" columnType="Int32" initialName="NRINVIO" persistent="NRINVIO" virtualColumnType="Int32" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="6b4d1a58-94a7-429d-8798-29945dc2a472">
+            <field Id="aa710b5d-9861-46ca-be53-13c22ad66d77" name="CENTROCOSTO" initialName="CENTROCOSTO" persistent="CENTROCOSTO" virtualColumnType="String" delayedUpdateModifiedOnly="false" size="12" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="d23395e8-1db3-4068-8abf-21ce389ca7ea">
+            <field Id="ea53818f-bb80-4d15-9423-314772e5b0a1" name="AREABUSINESS" initialName="AREABUSINESS" persistent="AREABUSINESS" virtualColumnType="String" delayedUpdateModifiedOnly="false" size="12" />
+          </generalXpObjectHasFields>
+        </fields>
+      </xpObject>
+    </dataBaseObjectModelHasClasses>
+  </classes>
+</dataBaseObjectModel>
