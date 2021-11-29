@@ -6,6 +6,7 @@ using DevExpress.Xpo;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,32 +65,33 @@ namespace ConsoleAppAPIAuth.Classi
                             status = SMSStatus.Inviato //  x.AvvisiSpedizioni.Status
                         }).ToList<Avvisi>();
                     // giro avvisi spdizioni
-                    SMSSent RispostaInvio = null;
-                    foreach (Avvisi avviso in qavvisiSpedizioni.OrderBy(o => o.status)) // giro su avvisi spedizioni
+                    //SMSSent RispostaInvio = null;
+                    foreach (Avvisi avviso in qavvisiSpedizioni.OrderBy(o => o.status).Where(x => x.id == 9)) // giro su avvisi spedizioni
                     {
                         //int id_avvisi = avviso.id;
                         //tuttiSpeditiSenzaErrori = true; +39
                         string telDestinatari = avviso.telefoniDestinatari.Replace(";", "").Replace("-", "").Replace("(0039)", "+39");
+                        string avvisoCorpo = avviso.CORPOSMS;//.Substring(1, 300)
                         Console.WriteLine("telDestinatari{0}  MESSAGE_ {1} CORPOSMS!{2}", telDestinatari, SMSAruba.MESSAGE_HIGH_QUALITY, avviso.CORPOSMS.Substring(1, 300));
-                        RispostaInvio = SMSAruba.GestioneSMS(telefoniDestinatari: telDestinatari,
+                        SMSSent RispostaInvio = SMSAruba.GestioneSMS(telefoniDestinatari: telDestinatari,
                             SMSAruba.MESSAGE_HIGH_QUALITY,
-                            Messaggio: avviso.CORPOSMS.Substring(1,300));
-                        switch (avviso.QualitaInvio)
-                        {
-                            case 0: // Aruba nd
-                                RispostaInvio = SMSAruba.GestioneSMS(telefoniDestinatari: telDestinatari, SMSAruba.MESSAGE_MEDIUM_QUALITY, Messaggio: avviso.CORPOSMS);
-                                break;
-                            case 1: // Aruba basso
-                                RispostaInvio = SMSAruba.GestioneSMS(telefoniDestinatari: telDestinatari, SMSAruba.MESSAGE_HIGH_QUALITY, Messaggio: avviso.CORPOSMS);
-                                break;
-                            case 2: // Aruba alto
-                                RispostaInvio = SMSAruba.GestioneSMS(telefoniDestinatari: telDestinatari, SMSAruba.MESSAGE_HIGH_QUALITY, Messaggio: avviso.CORPOSMS);
-                                NotificaTelegram.SendMSG(2143589472, avviso.CORPOSMS);
-                                break;
-                            default:
-                                //avvSpedizionicorr.Status = myTaskStatus.FallitoUlterioreInvio;
-                                break;
-                        }
+                            Messaggio: avvisoCorpo);
+                        //switch (avviso.QualitaInvio)
+                        //{
+                        //    case 0: // Aruba nd
+                        //        RispostaInvio = SMSAruba.GestioneSMS(telefoniDestinatari: telDestinatari, SMSAruba.MESSAGE_MEDIUM_QUALITY, Messaggio: avviso.CORPOSMS);
+                        //        break;
+                        //    case 1: // Aruba basso
+                        //        RispostaInvio = SMSAruba.GestioneSMS(telefoniDestinatari: telDestinatari, SMSAruba.MESSAGE_HIGH_QUALITY, Messaggio: avviso.CORPOSMS);
+                        //        break;
+                        //    case 2: // Aruba alto
+                        //        RispostaInvio = SMSAruba.GestioneSMS(telefoniDestinatari: telDestinatari, SMSAruba.MESSAGE_HIGH_QUALITY, Messaggio: avviso.CORPOSMS);
+                        //        NotificaTelegram.SendMSG(2143589472, avviso.CORPOSMS);
+                        //        break;
+                        //    default:
+                        //        //avvSpedizionicorr.Status = myTaskStatus.FallitoUlterioreInvio;
+                        //        break;
+                        //}
                         Console.WriteLine(RispostaInvio.result.ToString());
                         StatoInvio statoInvio = StatoInvio.NonDefinito;
                         if ("OK".Equals(RispostaInvio.result))
@@ -117,15 +119,11 @@ namespace ConsoleAppAPIAuth.Classi
                         uw.CommitChanges();
                     }
                     //  fine for avvisispedizioni
-                    //tran.DataUltimaEsecuzione = DateTime.Now;
-                    ////tran.DataPianificata = DateTime.Now.AddMinutes(5);
-                    //tran.StatoElaborazioneJob = StatoElaborazioneJob.EseguitoExec;
-                    //tran.Save();
-                    //uw.CommitChanges();
+
 
                     List<Avvisi> qEsitoSpedizioni = uw.Query<APISMS_CL01>()
                        .Where(x => x.ISCLOSED == false && x.TIPOINVIO == (int)TipoInvio.SMS && x.STATO == (int)StatoInvio.Inviato)
-                       .Where(x => x.DATAORA_ULTIMOPUT > datalimiteinferiorequesry)
+                       //.Where(x => x.DATAORA_ULTIMOPUT > datalimiteinferiorequesry)
                        .OrderBy(x => x.Oid)
                        .Select(x =>
                        new Avvisi()
@@ -137,21 +135,45 @@ namespace ConsoleAppAPIAuth.Classi
                            QualitaInvio = x.QUALITAINVIO
                            //status = x.STATO 
                        }).ToList<Avvisi>();
-                    foreach (Avvisi avviso in qavvisiSpedizioni.OrderBy(o => o.status)) // giro su avvisi spedizioni
+                    foreach (Avvisi avviso in qEsitoSpedizioni.OrderBy(o => o.status)) // giro su avvisi spedizioni
                     {
-                        var RispostaStato = SMSAruba.GetSMSStato(IDSMS: avviso.ID_SMS);
+                        StatusSMSApi RispostaStato = SMSAruba.GetSMSStato(IDSMS: avviso.ID_SMS);
+                        StatoInvio statoInvio = StatoInvio.NonDefinito;
+                        bool isClosed = false;
+                        EsitoSMS esito = new EsitoSMS();
+                        if ("OK".Equals(RispostaStato.result))
+                        {
+                            string msg = string.Format("smsSent.order_id {0}, smsSent.recipient_number {1}, smsSent.result {2} ",
+                       avviso.id, RispostaStato.recipient_number, RispostaStato.result.ToString());
+                            Console.WriteLine(msg);
+                            switch (RispostaStato.recipients.status)
+                            {
+                                case "DLVRD": // Aruba nd
+                                    statoInvio = StatoInvio.Completato;
+                                    isClosed = true;
+                                    break;      
+                                default:
+                                    statoInvio = StatoInvio.Inviato;
+                                    break;
+                            }
+                            esito = (EsitoSMS)Enum.Parse(typeof(EsitoSMS), RispostaStato.recipients.status);
+                        }
+                        else
+                        {
+                            statoInvio = StatoInvio.FallitoInvio;
+                            esito = EsitoSMS.ERROR;
+                        }
                         APISMS_CL01 APISms = uw.GetObjectByKey<APISMS_CL01>(avviso.id);
-                        APISms.ID_SMS = RispostaInvio.order_id;
-
-                        //APISms.STATO = (int)statoInvio;
+                        //APISms.ID_SMS = RispostaInvio.order_id;
+                        APISms.STATO = (int)statoInvio;
+                        //EsitoSMS esito = (EsitoSMS)Enum.Parse(typeof(EsitoSMS), RispostaStato.recipients.status);
+                        APISms.ESITO = (int)esito;
                         APISms.DATAORAUPDATE = DateTime.Now;
-                        APISms.ESITO = (int)EsitoSMS.SENT_TO_SMSC;
-                        APISms.NRINVIO = RispostaInvio.total_sent;
+                        APISms.DATASPEDIZIONE = GetDataSpedizione(RispostaStato.recipients.delivery_date);
+                         APISms.ISCLOSED = isClosed;
                         APISms.Save();
                         uw.CommitChanges();
                     }
-
-
                     //*******************************************************************************************
                     //AuditTrailService.Instance.QueryCurrentUserName += OnAuditTrailServiceInstanceQueryCurrentUserName;
                     //AuditTrailService.Instance.SaveAuditData(uw);
@@ -168,11 +190,11 @@ namespace ConsoleAppAPIAuth.Classi
             AddLog(CurentUser, "API", "fine run RunEmailSms", DateTime.Now.ToString(), sessione_ID);
         }
 
-        private static void AggiornaNotifica(UnitOfWork uw, Avvisi avviso)
+        private static DateTime GetDataSpedizione(string dateString)
         {
-            APISMS_CL01 APISms = uw.GetObjectByKey<APISMS_CL01>(avviso.id);
-            APISms.STATO = (int)StatoInvio.FallitoInvio;
-            APISms.Save();
+            CultureInfo provider = CultureInfo.InvariantCulture;
+            DateTime dateTime10 = DateTime.ParseExact(dateString, "yyyyMMddHHmmss", provider);
+            return dateTime10;
         }
 
         public int AddLog(string UserName, string Evento, string Descrizione, string Corpo, string SessioneWEB)
