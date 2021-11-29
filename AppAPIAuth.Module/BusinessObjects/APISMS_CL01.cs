@@ -115,6 +115,15 @@ namespace AppAPIAuth.Module.BusinessObjects
             get { return fDATAORAUPDATE; }
             set { SetPropertyValue<DateTime>(nameof(DATAORAUPDATE), ref fDATAORAUPDATE, value); }
         }
+
+        DateTime fDATASPEDIZIONE;
+        public DateTime DATASPEDIZIONE
+        {
+            get { return fDATASPEDIZIONE; }
+            set { SetPropertyValue<DateTime>(nameof(DATASPEDIZIONE), ref fDATASPEDIZIONE, value); }
+        }
+
+
         bool fISRECEIVED;
         public bool ISRECEIVED
         {

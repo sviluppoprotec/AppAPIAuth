@@ -144,49 +144,25 @@ namespace ConsoleAppAPIAuth.Classi
 
             SMSSent smsSent = mysendSMS(auth, sendSMSRequest);
 
-            if ("OK".Equals(smsSent.result))
-            {
-                Console.WriteLine("SMS successfully sent!");
-                string msg = string.Format("smsSent.order_id {0}, smsSent.remaining_credits {1}, smsSent.result {2}, , smsSent.total_sent {3}",
-                    smsSent.order_id, smsSent.remaining_credits, smsSent.result, smsSent.total_sent);
-                Console.WriteLine(msg);
-            }
-            Console.WriteLine(smsSent.result.ToString());
+            //if ("OK".Equals(smsSent.result))
+            //{
+            //    Console.WriteLine("SMS successfully sent!");
+            //    string msg = string.Format("smsSent.order_id {0}, smsSent.remaining_credits {1}, smsSent.result {2}, , smsSent.total_sent {3}",
+            //        smsSent.order_id, smsSent.remaining_credits, smsSent.result, smsSent.total_sent);
+            //    Console.WriteLine(msg);
+            //}
+            //Console.WriteLine(smsSent.result.ToString());
             return smsSent;
         }
 
 
-        public static SMSSent GetSMSStato( string IDSMS)
+        public static StatusSMSApi GetSMSStato( string IDSMS)
         {
-            //SMSSent smsSent = null;
             String[] auth = authenticate(MY_USERNAME, MY_PASSWORD);
+            StatusSMSApi SMSStatusResponse = myGetSMSStato(auth, IDSMS);
 
-            //SendSMS sendSMSRequest = new SendSMS();
-            //sendSMSRequest.message = Messaggio;
-            //sendSMSRequest.message_type = message_type;
-            //sendSMSRequest.recipient = new String[] { telefoniDestinatari };
-
-
-            //// Send the SMS message at the given date (Optional)
-            //int minute = DateTime.Now.AddMinutes(+2).Minute;
-            //int ora = DateTime.Now.Hour;
-            //sendSMSRequest.scheduled_delivery_time = null; // new DateTime(2021, 11, 24, ora, minute, 00);
-            //sendSMSRequest.returnCredits = true;
-            //sendSMSRequest.returnRemaining = true;
-
-            var smsSent = myGetSMSStato(auth, IDSMS);
-
-            if ("OK".Equals(smsSent.result))
-            {
-                Console.WriteLine("SMS successfully sent!");
-                string msg = string.Format("smsSent.order_id {0}, smsSent.remaining_credits {1}, smsSent.result {2}, , smsSent.total_sent {3}",
-                    smsSent.order_id, smsSent.remaining_credits, smsSent.result, smsSent.total_sent);
-                Console.WriteLine(msg);
-            }
-            Console.WriteLine(smsSent.result.ToString());
-            return smsSent;
-
-
+            Console.WriteLine(SMSStatusResponse.result.ToString());
+            return SMSStatusResponse;
         }
 
         /**
@@ -223,10 +199,20 @@ namespace ConsoleAppAPIAuth.Classi
                 wb.Headers.Add("user_key", auth[0]);
                 wb.Headers.Add("Session_key", auth[1]);
 
+                Console.WriteLine(sendSMS);
+
                 String json = JsonConvert.SerializeObject(sendSMS);
 
+                Console.WriteLine("json {0}", json);
+                Console.WriteLine(BASEURL + "sms "+ " POST " + json);
                 var sentSMSBody =
                     wb.UploadString(BASEURL + "sms", "POST", json);
+                //{ "result":"OK",
+                //        "order_id":"C214BA2D920349709A5383627C6FBCEA"
+                //        ,"total_sent":2,
+                //        "remaining_credits":13456,
+                //        "internal_order_id":"f0bdb20b-4878-41b6-807c-1f7b31f5ea61"}
+                Console.WriteLine( sentSMSBody );
 
                 SMSSent sentSMSResponse =
                     JsonConvert.DeserializeObject<SMSSent>(sentSMSBody);
@@ -235,8 +221,35 @@ namespace ConsoleAppAPIAuth.Classi
             }
         }
 
-        static SMSSent myGetSMSStato(String[] auth, string IDSMS)
+        static StatusSMSApi myGetSMSStato(String[] auth, string IDSMS)
         {
+            //static void Main(string[] args)
+            //{
+            //    using (var wb = new WebClient())
+            //    {
+            //        // Setting the encoding is required when sending UTF8 characters!
+            //        wb.Encoding = System.Text.Encoding.UTF8;
+
+            //        try
+            //        {
+            //            wb.Headers.Set(HttpRequestHeader.ContentType, "application/json");
+            //            wb.Headers.Add("user_key", "USER_KEY");
+            //            wb.Headers.Add("Session_key", "SESSION_KEY");
+
+            //            String response = wb.DownloadString("https://smspanel.aruba.it/API/v1.0/REST/sms/ORDER_ID");
+
+            //            dynamic obj = JsonConvert.DeserializeObject(response);
+            //            Console.WriteLine(obj);
+            //        }
+            //        catch (WebException ex)
+            //        {
+            //            var statusCode = ((HttpWebResponse)ex.Response).StatusCode;
+            //            var errorResponse = new StreamReader(ex.Response.GetResponseStream()).ReadToEnd();
+            //            Console.WriteLine("Error!, http code: " + statusCode + ", body message: ");
+            //            Console.WriteLine(errorResponse);
+            //        }
+            //    }
+            //}
             using (var wb = new WebClient())
             {
                 // Setting the encoding is required when sending UTF8 characters!
@@ -245,16 +258,50 @@ namespace ConsoleAppAPIAuth.Classi
                 wb.Headers.Set(HttpRequestHeader.ContentType, "application/json");
                 wb.Headers.Add("user_key", auth[0]);
                 wb.Headers.Add("Session_key", auth[1]);
+                Console.WriteLine(IDSMS.ToString());
+                //String json = JsonConvert.SerializeObject(IDSMS);
 
-                String json = JsonConvert.SerializeObject(IDSMS);
+                StatusSMSApi SMSStatusResponse = new StatusSMSApi();
+                try
+                {
+                    string urlcompleto = string.Format(@"https://smspanel.aruba.it/API/v1.0/REST/sms/{0}", IDSMS);
+                    String response = wb.DownloadString(urlcompleto);
+//  {
+//   "result": "OK",
+//  "recipients": [
+//    {
+//      "destination": "+393463228369",
+//      "status": "DLVRD",
+//      "delivery_date": "20211129154835"
+//    }
+//  ],
+//  "recipient_number": 1
+//}
+                    dynamic obj = JsonConvert.DeserializeObject(response);
+                    Console.WriteLine(obj);
+                    string mio = obj.recipient_number;
+                    string mio1 = obj.result;
+                    var recipiente = obj.recipients;
+                   
+                    SMSStatusResponse.result = obj.result.Value;
+                    SMSStatusResponse.recipient_number = Convert.ToString( obj.recipient_number.Value);
+                    SMSStatusResponse.result = obj.result.Value;
 
-                var sentSMSBody =
-                    wb.UploadString(BASEURL + "sms", "POST", json);
-                //SMSSent sentSMSResponse =
-          var sentSMSResponse =
-                    JsonConvert.DeserializeObject<SMSSent>(sentSMSBody);
+                    MyRecipients myRecipients = new MyRecipients();
+                    myRecipients.destination = recipiente[0].destination.Value;
+                    myRecipients.status = recipiente[0].status.Value;
+                    myRecipients.delivery_date = recipiente[0].delivery_date.Value;
+                    SMSStatusResponse.recipients = myRecipients;
+                }
+                catch (WebException ex)
+                {
+                    var statusCode = ((HttpWebResponse)ex.Response).StatusCode;
+                    var errorResponse = new StreamReader(ex.Response.GetResponseStream()).ReadToEnd();
+                    Console.WriteLine("Error!, http code: " + statusCode + ", body message: ");
+                    Console.WriteLine(errorResponse);
+                }
 
-                return sentSMSResponse;
+                    return SMSStatusResponse;
             }
         }
     }

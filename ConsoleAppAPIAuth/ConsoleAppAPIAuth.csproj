@@ -67,6 +67,7 @@
     <Compile Include="Model\SMSSent.cs" />
     <Compile Include="Model\SMSStatus.cs" />
     <Compile Include="Model\StatoInvio.cs" />
+    <Compile Include="Model\StatusSMSApi.cs" />
     <Compile Include="Model\TipoInvio.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
