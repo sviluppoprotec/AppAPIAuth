@@ -44,17 +44,19 @@ namespace ApiAuth.Controllers
         [Produces("application/json")]
         [ApiExplorerSettings(IgnoreApi = false)]
         [HttpGet("{id}")]
-        public async Task<ActionResult<Smscl01>> Get(int id)
+        public async Task<ActionResult<Smscl01>> Get(int id, string Sistema, string Cliente)
         {
 
             var vSmsOut = await uow.Query<APISMS_CL01>()
-                .Where(w => w.CLIENTE == "Engie Servizi SpA")
-                   .Where(w => w.REGRDL == id)
+                .Where(w => w.CLIENTE == "Engie Servizi SpA" || w.SISTEMA.Contains("EAMSPA") || w.SISTEMA.Contains("EAMSSL"))
+                   .Where(w => w.ID == id)
                 .Select(s => new
           Smscl01
                 {
                     Id = s.ID,
                     Esito = s.ESITO,
+                    Cliente=s.CLIENTE,
+                    Sistema=s.SISTEMA,
                     Token = Guid.NewGuid()
                 }
               ).Take(100).ToListAsync<Smscl01>();
@@ -91,6 +93,7 @@ namespace ApiAuth.Controllers
         public async Task<IActionResult> PutAggSmSCL01(long id, Smscl01 item)
         {
 
+            string[] weekDays = new string[] { "EAMSPA", "EAMSSL"};
             //using (GetAPIWEBEAMS g = new GetAPIWEBEAMS(uow))
             //{
             //    string par = string.Format("{0}.id, {1}.CodiceOut, {2}.CodiceSITO, {3}.CommessaID, {4}.Codiceimpianto", item.Id, item.CodiceOut, item.CodiceSITO, item.CommessaID, item.Codiceimpianto);
@@ -100,7 +103,7 @@ namespace ApiAuth.Controllers
             {
                 return BadRequest();
             }
-            if (item.Cliente != "Engie Servizi SpA" || item.Sistema != "PA" || item.Sistema != "SL")
+            if (item.Cliente != "Engie Servizi SpA")
             {
                 return BadRequest();
             }
@@ -119,9 +122,9 @@ namespace ApiAuth.Controllers
                     newAPIAB.DESTSMS = item.DestSMS;
                     newAPIAB.AREABUSINESS = item.AreaBusiness;
                     newAPIAB.CENTROCOSTO = item.CentroCosto;
-                    newAPIAB.QUALITAINVIO = item.QualitaInvio;
+                    newAPIAB.QUALITAINVIO = item.QualitaInvio; //= nd, 1 = proposto , 2 = inviato, 3 = noninviato, 
                     newAPIAB.TIPOINVIO = item.TipoInvio;
-                    newAPIAB.STATO = 0;
+                    newAPIAB.STATO = 1; // 0 =nd, 1= proposto , 2=inviato, 3=noninviato, 
                     newAPIAB.NRINVIO = 0;                   
                     newAPIAB.DATAORAUPDATE = DateTime.Now;
                     newAPIAB.DATAORA_ULTIMOPUT = DateTime.Now;
