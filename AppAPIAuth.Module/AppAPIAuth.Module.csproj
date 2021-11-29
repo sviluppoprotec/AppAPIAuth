@@ -178,6 +178,7 @@
   <ItemGroup>
     <Compile Include="BusinessObjects\APIAUT.cs" />
     <Compile Include="BusinessObjects\APISMS_CL01.cs" />
+    <Compile Include="BusinessObjects\TraceLog.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
