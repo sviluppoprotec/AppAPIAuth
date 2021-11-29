@@ -150,14 +150,14 @@ namespace ConsoleAppAPIAuth.Classi
 
             SMSSent smsSent = mysendSMS(auth, sendSMSRequest);
 
-            if ("OK".Equals(smsSent.result))
-            {
-                Console.WriteLine("SMS successfully sent!");
-                string msg = string.Format("smsSent.order_id {0}, smsSent.remaining_credits {1}, smsSent.result {2}, , smsSent.total_sent {3}",
-                    smsSent.order_id, smsSent.remaining_credits, smsSent.result, smsSent.total_sent);
-                Console.WriteLine(msg);
-            }
-            Console.WriteLine(smsSent.result.ToString());
+            //if ("OK".Equals(smsSent.result))
+            //{
+            //    Console.WriteLine("SMS successfully sent!");
+            //    string msg = string.Format("smsSent.order_id {0}, smsSent.remaining_credits {1}, smsSent.result {2}, , smsSent.total_sent {3}",
+            //        smsSent.order_id, smsSent.remaining_credits, smsSent.result, smsSent.total_sent);
+            //    Console.WriteLine(msg);
+            //}
+            //Console.WriteLine(smsSent.result.ToString());
             return smsSent;
         }
 

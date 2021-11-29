@@ -68,7 +68,10 @@ namespace ConsoleAppAPIAuth.Classi
                             //tuttiSpeditiSenzaErrori = true; +39
                             string telDestinatari = avviso.telefoniDestinatari.Replace(";", "").Replace("-", "").Replace("(0039)", "+39");
                             string avvisoCorpo = avviso.CORPOSMS;//.Substring(1, 300)
-                            Console.WriteLine("telDestinatari{0}  MESSAGE_ {1} CORPOSMS!{2}", telDestinatari, SMSAruba.MESSAGE_HIGH_QUALITY, avviso.CORPOSMS.Substring(1, 300));
+                            Console.WriteLine("telDestinatari{0}  MESSAGE_ {1} CORPOSMS!{2}", 
+                                telDestinatari,
+                                SMSAruba.MESSAGE_HIGH_QUALITY, 
+                                avviso.CORPOSMS);
                             SMSSent RispostaInvio = SMSAruba.GestioneSMS(telefoniDestinatari: telDestinatari,
                                 SMSAruba.MESSAGE_HIGH_QUALITY,
                                 Messaggio: avvisoCorpo);

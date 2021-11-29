@@ -66,8 +66,9 @@ namespace ConsoleAppAPIAuth
                 System.Console.WriteLine("Data Attuale: " + DateTime.Now);
                 System.Console.WriteLine("Data Scadenza: " + datascadenza);
                 TimeSpan diff1 = datascadenza.Subtract(DateTime.Now);
-                System.Console.WriteLine("Differenza in secondi: " + diff1.Seconds);
+                System.Console.WriteLine("Differenza in secondi: " + diff1.TotalSeconds);
                 System.Console.WriteLine("numero di giri fatti: " + giri);
+                System.Console.WriteLine("========================= " );
             } while (datascadenza > DateTime.Now);
 
         }
