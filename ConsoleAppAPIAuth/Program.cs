@@ -31,11 +31,11 @@ namespace ConsoleAppAPIAuth
             TimeSpan interval = new TimeSpan(1, 0, 0, 0);
 
             interval = dateSuccessiva - datePrecedente;
-            DateTime datascadenza = DateTime.Now.AddSeconds(+570);  // 570 A 9 MINUTI E MEZZO
+            DateTime datascadenza = DateTime.Now.AddSeconds(+590);  // 570 A 9 MINUTI E MEZZO
             int giri = 0;
             string sessione_ID = Guid.NewGuid().ToString();
             DateTime dataSessioneLancio = DateTime.Now;
-            // Part 2: use do-while loop to sum numbers in 4-element array.
+            // Part 2: use do-while loop to sum numbers in 4-element array. tipo == "Spedisci" || tipo == "Controlla"
             do
             {
                 try
@@ -44,30 +44,24 @@ namespace ConsoleAppAPIAuth
                     {
                         mandaMailSms.Run(
                         "Admin",
-                        AppDomain.CurrentDomain.BaseDirectory,
+                        "Spedisci",
+                        dataSessioneLancio,
+                        sessione_ID);          
+                    }
+                    using (SendNotificaSMS mandaMailSms = new SendNotificaSMS())
+                    {
+                        mandaMailSms.Run(
+                        "Admin",
+                        "Controlla",
                         dataSessioneLancio,
                         sessione_ID);
-
-                        //mandaMailSms.UnLocketRecord(
-                        //System.Configuration.ConfigurationManager.ConnectionStrings["CN"].ConnectionString,
-                        //"Admin",
-                        //AppDomain.CurrentDomain.BaseDirectory,
-                        //dataSessioneLancio,
-                        //sessione_ID);
-                    }
-                    if (false)
-                    {
-                        //using (VerificaStatoInvioSMS verSMS = new VerificaStatoInvioSMS())
-                        //{
-                        //    //verSMS.SetStatusInvioSMS(System.Configuration.ConfigurationManager.ConnectionStrings["CN"].ConnectionString, "Admin", sessione_ID);
-                        //}
                     }
                 }
                 catch
                 {
                     System.Console.WriteLine("Errore");
                 }
-                System.Threading.Thread.Sleep(5000);
+                System.Threading.Thread.Sleep(4000);
                 giri++;
                 System.Console.WriteLine("Data Attuale: " + DateTime.Now);
                 System.Console.WriteLine("Data Scadenza: " + datascadenza);
