@@ -12,19 +12,16 @@ namespace ApiAuth.Models
         [Required]
         public long Id { get; set; }
         [Required]
-        public int Regrdl { get; set; }
-        [Required]
-        public Guid Token { get; set; }  
-        [Required]
+        public int Regrdl { get; set; }        
+        public Guid Token { get; set; }          
         public string TipologiaSMS { get; set; }
         [Required]
         public string DestSMS { get; set; }     
         [Required]
         public string CorpoSMS { get; set; }    
         [Required]
-        public string Utente { get; set; }
-        [Required]
-        public string Sistema { get; set; }        [Required]
+        public string Utente { get; set; }      
+        public string Sistema { get; set; }        
         public string Cliente { get; set; }
         public string CentroCosto { get; set; }
         public string AreaBusiness { get; set; }

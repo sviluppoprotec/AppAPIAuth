@@ -79,10 +79,10 @@ namespace APIAuth
                     };
                     document.BasePath = "/"; //PlatformServices.Default.Application.ApplicationBasePath;
 
-                    document.Host = "http://q9czx8w47v22.protecsrl.biz/";
+                    document.Host = "http://notifichesms.protecsrl.biz/";
                     NSwag.OpenApiServer _Server = new NSwag.OpenApiServer
                     {
-                        Url = "http://q9czx8w47v22.protecsrl.biz", //" https://development.gigantic-server.com/v1 ",
+                        Url = "http://notifichesms.protecsrl.biz", //" https://development.gigantic-server.com/v1 ",
                         Description = " Server di sviluppo "
                     };
                     document.Servers.Add(_Server);
