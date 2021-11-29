@@ -189,6 +189,12 @@ namespace AppAPIAuth.Module.BusinessObjects
             get { return fAREABUSINESS; }
             set { SetPropertyValue<string>(nameof(AREABUSINESS), ref fAREABUSINESS, value); }
         }
+        string fID_SMS;
+        public string ID_SMS
+        {
+            get { return fID_SMS; }
+            set { SetPropertyValue<string>(nameof(ID_SMS), ref fID_SMS, value); }
+        }
     }
 
  

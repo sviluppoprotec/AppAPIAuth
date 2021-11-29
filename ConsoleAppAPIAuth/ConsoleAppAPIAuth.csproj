@@ -61,7 +61,13 @@
     <Compile Include="Classi\SendNotificaSMS.cs" />
     <Compile Include="Classi\SMSAruba.cs" />
     <Compile Include="Model\Avvisi.cs" />
+    <Compile Include="Model\EsitoSMS.cs" />
+    <Compile Include="Model\QualitaInvio.cs" />
+    <Compile Include="Model\SendSMS.cs" />
+    <Compile Include="Model\SMSSent.cs" />
     <Compile Include="Model\SMSStatus.cs" />
+    <Compile Include="Model\StatoInvio.cs" />
+    <Compile Include="Model\TipoInvio.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XpoHelper\XpoHelperAudit.cs" />

@@ -12,6 +12,7 @@ using System.Collections.Specialized;
 // We are using JSON.NET (http://www.newtonsoft.com/json)
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using ConsoleAppAPIAuth.Model;
 
 namespace ConsoleAppAPIAuth.Classi
 {
@@ -160,6 +161,40 @@ namespace ConsoleAppAPIAuth.Classi
             return smsSent;
         }
 
+
+        public static SMSSent GetSMSStato( string IDSMS)
+        {
+            //SMSSent smsSent = null;
+            String[] auth = authenticate(MY_USERNAME, MY_PASSWORD);
+
+            //SendSMS sendSMSRequest = new SendSMS();
+            //sendSMSRequest.message = Messaggio;
+            //sendSMSRequest.message_type = message_type;
+            //sendSMSRequest.recipient = new String[] { telefoniDestinatari };
+
+
+            //// Send the SMS message at the given date (Optional)
+            //int minute = DateTime.Now.AddMinutes(+2).Minute;
+            //int ora = DateTime.Now.Hour;
+            //sendSMSRequest.scheduled_delivery_time = null; // new DateTime(2021, 11, 24, ora, minute, 00);
+            //sendSMSRequest.returnCredits = true;
+            //sendSMSRequest.returnRemaining = true;
+
+            var smsSent = myGetSMSStato(auth, IDSMS);
+
+            if ("OK".Equals(smsSent.result))
+            {
+                Console.WriteLine("SMS successfully sent!");
+                string msg = string.Format("smsSent.order_id {0}, smsSent.remaining_credits {1}, smsSent.result {2}, , smsSent.total_sent {3}",
+                    smsSent.order_id, smsSent.remaining_credits, smsSent.result, smsSent.total_sent);
+                Console.WriteLine(msg);
+            }
+            Console.WriteLine(smsSent.result.ToString());
+            return smsSent;
+
+
+        }
+
         /**
          * Authenticates the user given it's username and
          * password. Returns a couple (user_key, session_key)
@@ -206,6 +241,28 @@ namespace ConsoleAppAPIAuth.Classi
             }
         }
 
+        static SMSSent myGetSMSStato(String[] auth, string IDSMS)
+        {
+            using (var wb = new WebClient())
+            {
+                // Setting the encoding is required when sending UTF8 characters!
+                wb.Encoding = System.Text.Encoding.UTF8;
+
+                wb.Headers.Set(HttpRequestHeader.ContentType, "application/json");
+                wb.Headers.Add("user_key", auth[0]);
+                wb.Headers.Add("Session_key", auth[1]);
+
+                String json = JsonConvert.SerializeObject(IDSMS);
+
+                var sentSMSBody =
+                    wb.UploadString(BASEURL + "sms", "POST", json);
+                //SMSSent sentSMSResponse =
+          var sentSMSResponse =
+                    JsonConvert.DeserializeObject<SMSSent>(sentSMSBody);
+
+                return sentSMSResponse;
+            }
+        }
     }
 
     /**
@@ -213,50 +270,48 @@ namespace ConsoleAppAPIAuth.Classi
  * The JSon object is then automatically created starting from an
  * instance of this class, using JSON.NET.
  */
-    class SendSMS
-    {
-        /** The message body */
-        public String message;
+    //class SendSMS
+    //{
+    //    /** The message body */
+    //    public String message;
 
-        /** The message type */
-        public String message_type;
+    //    /** The message type */
+    //    public String message_type;
 
-        /** The sender Alias (TPOA) */
-        public String sender;
+    //    /** The sender Alias (TPOA) */
+    //    public String sender;
 
-        /** Postpone the SMS message sending to the specified date */
-        public DateTime? scheduled_delivery_time;
+    //    /** Postpone the SMS message sending to the specified date */
+    //    public DateTime? scheduled_delivery_time;
 
-        /** The list of recipients */
-        public String[] recipient;
+    //    /** The list of recipients */
+    //    public String[] recipient;
 
-        /** Should the API return the remaining credits? */
-        public Boolean returnCredits = false;
+    //    /** Should the API return the remaining credits? */
+    //    public Boolean returnCredits = false;
 
-        public Boolean returnRemaining = false;
-    }
+    //    public Boolean returnRemaining = false;
+    //}
 
 
     /**
      * This class represents the API Response. It is automatically created starting
      * from the JSON object returned by the server, using GSon
      */
-    class SMSSent
-    {
-        /** The result of the SMS message sending */
-        public String result;
+    //class SMSSent
+    //{
+    //    /** The result of the SMS message sending */
+    //    public String result;
 
-        /** The order ID of the SMS message sending */
-        public String order_id;
+    //    /** The order ID of the SMS message sending */
+    //    public String order_id;
 
-        /** The actual number of sent SMS messages */
-        public int total_sent;
+    //    /** The actual number of sent SMS messages */
+    //    public int total_sent;
 
-        /** The remaining credits */
-        public int remaining_credits;
-
-
-    }
+    //    /** The remaining credits */
+    //    public int remaining_credits;
+    //}
 
 
 

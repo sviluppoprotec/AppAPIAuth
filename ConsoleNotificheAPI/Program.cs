@@ -62,27 +62,27 @@ namespace ConsoleNotificheAPI
             {
                 try
                 {
-                    using (MandaMailSms mandaMailSms = new MandaMailSms())
-                    {
-                        mandaMailSms.RunEmailSms(System.Configuration.ConfigurationManager.ConnectionStrings["CN"].ConnectionString,
-                        "Admin",
-                        AppDomain.CurrentDomain.BaseDirectory,
-                        dataSessioneLancio,
-                        sessione_ID);
+                    //using (MandaMailSms mandaMailSms = new MandaMailSms())
+                    //{
+                    //    //mandaMailSms.RunEmailSms(System.Configuration.ConfigurationManager.ConnectionStrings["CN"].ConnectionString,
+                    //    //"Admin",
+                    //    //AppDomain.CurrentDomain.BaseDirectory,
+                    //    //dataSessioneLancio,
+                    //    //sessione_ID);
 
-                        mandaMailSms.UnLocketRecord(
-                        System.Configuration.ConfigurationManager.ConnectionStrings["CN"].ConnectionString,
-                        "Admin",
-                        AppDomain.CurrentDomain.BaseDirectory,
-                        dataSessioneLancio,
-                        sessione_ID);
-                    }
+                    //    //mandaMailSms.UnLocketRecord(
+                    //    //System.Configuration.ConfigurationManager.ConnectionStrings["CN"].ConnectionString,
+                    //    //"Admin",
+                    //    //AppDomain.CurrentDomain.BaseDirectory,
+                    //    //dataSessioneLancio,
+                    //    //sessione_ID);
+                    //}
                     if (false)
                     {
-                        using (VerificaStatoInvioSMS verSMS = new VerificaStatoInvioSMS())
-                        {
-                            //verSMS.SetStatusInvioSMS(System.Configuration.ConfigurationManager.ConnectionStrings["CN"].ConnectionString, "Admin", sessione_ID);
-                        }
+                        //using (VerificaStatoInvioSMS verSMS = new VerificaStatoInvioSMS())
+                        //{
+                        //    //verSMS.SetStatusInvioSMS(System.Configuration.ConfigurationManager.ConnectionStrings["CN"].ConnectionString, "Admin", sessione_ID);
+                        //}
                     }
                 }
                 catch
