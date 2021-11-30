@@ -48,7 +48,7 @@ namespace ApiAuth.Controllers
         {
 
             var vSmsOut = await uow.Query<APISMS_CL01>()
-                //.Where(w => w.CLIENTE == "Engie Servizi SpA" || w.SISTEMA.Contains("EAMSPA") || w.SISTEMA.Contains("EAMSSL"))
+               // .Where(w => w.CLIENTE == "Engie Servizi SpA" || w.SISTEMA.Contains("EAMSPA") || w.SISTEMA.Contains("EAMSSL"))
                    .Where(w => w.ID == id)
                 .Select(s => new
           Smscl01
@@ -57,6 +57,7 @@ namespace ApiAuth.Controllers
                     Esito = s.ESITO,
                     Cliente=s.CLIENTE,
                     Sistema=s.SISTEMA,
+                    SmsID=s.ID_SMS,
                     Token = Guid.NewGuid()
                 }
               ).Take(100).ToListAsync<Smscl01>();
@@ -79,7 +80,8 @@ namespace ApiAuth.Controllers
                 Regrdl = 0,
                 DestSMS = string.Empty,
                 Token = Guid.NewGuid(),
-                CorpoSMS = string.Empty
+                CorpoSMS = string.Empty,
+                SmsID = ""
             };
             return _Smscl01oOut;
         }
@@ -90,7 +92,7 @@ namespace ApiAuth.Controllers
         [SwaggerResponse(HttpStatusCode.OK, typeof(NoData), Description = "Successfull operation")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(NoData), Description = "Invalid Parameter supplied.")]
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAggSmSCL01(long id, Smscl01 item)
+        public async Task<IActionResult> Put(long id, Smscl01 item)
         {
 
             string[] weekDays = new string[] { "EAMSPA", "EAMSSL"};
@@ -103,10 +105,10 @@ namespace ApiAuth.Controllers
             {
                 return BadRequest();
             }
-            if (item.Cliente != "Engie Servizi SpA")
-            {
-                return BadRequest();
-            }
+            //if (item.Cliente != "Engie Servizi SpA")
+            //{
+            //    return BadRequest();
+            //}
             else
             {
                 try
@@ -130,7 +132,7 @@ namespace ApiAuth.Controllers
                     newAPIAB.DATAORA_ULTIMOPUT = DateTime.Now;
                     newAPIAB.ISRECEIVED = false;
                     newAPIAB.ISSENT = false;
-                    newAPIAB.ISCLOSED = false;
+                    newAPIAB.ISCLOSED = false;                    
                     newAPIAB.Save();
                     uow.CommitChanges();
                     return Ok();

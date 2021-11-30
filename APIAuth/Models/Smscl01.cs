@@ -30,6 +30,7 @@ namespace ApiAuth.Models
         public int QualitaInvio { get; set; }
         public int NrInvio { get; set; }
         public int Stato { get; set; }
+        public string SmsID { get; set; }
 
         //public string IdUtente { get; set; }
         //[Required]

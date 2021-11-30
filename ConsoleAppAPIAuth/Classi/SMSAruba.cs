@@ -3,15 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System;
 using System.IO;
-using System.Text;
 using System.Net;
 using System.Collections.Specialized;
-
-// We are using JSON.NET (http://www.newtonsoft.com/json)
-using Newtonsoft.Json;
-using System.Collections.Generic;
 using ConsoleAppAPIAuth.Model;
 
 namespace ConsoleAppAPIAuth.Classi

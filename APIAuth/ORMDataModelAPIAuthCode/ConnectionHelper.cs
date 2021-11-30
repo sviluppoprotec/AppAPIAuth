@@ -20,7 +20,8 @@ namespace APIAuth.Database
     {
         static Type[] persistentTypes = new Type[] {
             typeof(APIAUT),
-            typeof(APISMS_CL01)
+            typeof(APISMS_CL01),
+            typeof(TraceLog)
         };
         public static Type[] GetPersistentTypes()
         {
