@@ -113,7 +113,7 @@ namespace APIAuth.Database
             set { SetPropertyValue<int>(nameof(ESITO), ref fESITO, value); }
         }
         string fCLIENTE;
-        [Size(12)]
+        [Size(25)]
         public string CLIENTE
         {
             get { return fCLIENTE; }
@@ -156,6 +156,18 @@ namespace APIAuth.Database
         {
             get { return fAREABUSINESS; }
             set { SetPropertyValue<string>(nameof(AREABUSINESS), ref fAREABUSINESS, value); }
+        }
+        string fID_SMS;
+        public string ID_SMS
+        {
+            get { return fID_SMS; }
+            set { SetPropertyValue<string>(nameof(ID_SMS), ref fID_SMS, value); }
+        }
+        DateTime fDATASPEDIZIONE;
+        public DateTime DATASPEDIZIONE
+        {
+            get { return fDATASPEDIZIONE; }
+            set { SetPropertyValue<DateTime>(nameof(DATASPEDIZIONE), ref fDATASPEDIZIONE, value); }
         }
     }
 
