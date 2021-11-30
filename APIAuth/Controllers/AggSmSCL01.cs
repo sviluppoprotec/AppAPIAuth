@@ -48,7 +48,7 @@ namespace ApiAuth.Controllers
         {
 
             var vSmsOut = await uow.Query<APISMS_CL01>()
-                .Where(w => w.CLIENTE == "Engie Servizi SpA" || w.SISTEMA.Contains("EAMSPA") || w.SISTEMA.Contains("EAMSSL"))
+               // .Where(w => w.CLIENTE == "Engie Servizi SpA" || w.SISTEMA.Contains("EAMSPA") || w.SISTEMA.Contains("EAMSSL"))
                    .Where(w => w.ID == id)
                 .Select(s => new
           Smscl01
@@ -103,10 +103,10 @@ namespace ApiAuth.Controllers
             {
                 return BadRequest();
             }
-            if (item.Cliente != "Engie Servizi SpA")
-            {
-                return BadRequest();
-            }
+            //if (item.Cliente != "Engie Servizi SpA")
+            //{
+            //    return BadRequest();
+            //}
             else
             {
                 try

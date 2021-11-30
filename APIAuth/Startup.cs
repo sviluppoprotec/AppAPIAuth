@@ -210,8 +210,8 @@ namespace APIAuth
             app.UseOpenApi(config => config.PostProcess = (document, request) =>
                         {
                             //Change document server settings to public// ExtractHost(request);
-                          //  document.Host = "http://eams.engie.it/";
-                            document.Host = "http://x-eams.engie.it/"; 
+                          //  document.Host = "http://notifichesms.protecsrl.biz/";
+                            document.Host = "http://notifichesms.protecsrl.biz/"; 
             
             //    base path
             //document.BasePath = "/apieams";// ExtractPath(request);   // ExtractPath(request);            /// @@@@@@  questo va cambiato in funzione del sito di destinazione di publicazione
