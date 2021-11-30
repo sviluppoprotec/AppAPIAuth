@@ -48,8 +48,8 @@ namespace ConsoleAppAPIAuth.Classi
                     if (tipo == "Spedisci")
                     {
                         List<Avvisi> qavvisiSpedizioni = uw.Query<APISMS_CL01>()
-                            .Where(x => x.ISCLOSED == false && x.TIPOINVIO == (int)TipoInvio.SMS && x.STATO == (int)StatoInvio.Predisposto)
-                            .Where(x => x.DATAORA_ULTIMOPUT > datalimiteinferiorequesry)
+                            .Where(x => x.ISCLOSED == false && x.TIPOINVIO == (int)TipoInvio.SMS && x.STATO == (int)StatoInvio.Predisposto) // false 1 1
+                            //.Where(x => x.DATAORA_ULTIMOPUT > datalimiteinferiorequesry)
                             .OrderBy(x => x.Oid)
                             .Select(x =>
                             new Avvisi()
