@@ -67,8 +67,8 @@ namespace Microsoft.Extensions.DependencyInjection
             return builder.AddJsonOptions(opt =>
             {
                 var resolver = new DatabaseJsonSerializationContractResolver();
-                opt.SerializerSettings.ContractResolver = resolver;
-                opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                //opt.SerializerSettings.ContractResolver = resolver;
+                //opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 setupAction?.Invoke(resolver);
             });
         }
