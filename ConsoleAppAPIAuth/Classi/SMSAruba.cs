@@ -7,6 +7,7 @@ using System.IO;
 using System.Net;
 using System.Collections.Specialized;
 using ConsoleAppAPIAuth.Model;
+using Newtonsoft.Json;
 
 namespace ConsoleAppAPIAuth.Classi
 {
