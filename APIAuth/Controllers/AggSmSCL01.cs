@@ -58,6 +58,7 @@ namespace ApiAuth.Controllers
                     Cliente=s.CLIENTE,
                     Sistema=s.SISTEMA,
                     SmsID=s.ID_SMS,
+                    NrInvio = s.NRINVIO,
                     Token = Guid.NewGuid()
                 }
               ).Take(100).ToListAsync<Smscl01>();
