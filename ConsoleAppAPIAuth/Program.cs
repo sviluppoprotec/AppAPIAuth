@@ -9,9 +9,10 @@ namespace ConsoleAppAPIAuth
 {
     class Program
     {
+        static Logger.FileLogger logger = new Logger.FileLogger();
         static void Main(string[] args)
         {
-
+            logger.Log("start"); 
             string telefoniDestinatari = "+393463228369";
             string Messaggio = " mio messaggio";
             //GestioneSMS(telefoniDestinatari, MESSAGE_MEDIUM_QUALITY, Messaggio);
@@ -57,9 +58,11 @@ namespace ConsoleAppAPIAuth
                         sessione_ID);
                     }
                 }
-                catch
+                catch(Exception ex)
                 {
                     System.Console.WriteLine("Errore");
+
+                    logger.Log($"error {ex.Message}");
                 }
                 System.Threading.Thread.Sleep(4000);
                 giri++;
@@ -69,8 +72,9 @@ namespace ConsoleAppAPIAuth
                 System.Console.WriteLine("Differenza in secondi: " + diff1.TotalSeconds);
                 System.Console.WriteLine("numero di giri fatti: " + giri);
                 System.Console.WriteLine("========================= " );
-            } while (datascadenza > DateTime.Now);
 
+            } while (datascadenza > DateTime.Now);
+            logger.Log("end");
         }
     }
 }

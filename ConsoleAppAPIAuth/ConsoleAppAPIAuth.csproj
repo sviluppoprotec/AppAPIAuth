@@ -112,6 +112,10 @@
       <Project>{6b9ca78e-22c6-4bd6-abe4-07c4cd2b302d}</Project>
       <Name>AppAPIAuth.Module</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Logger\Logger.csproj">
+      <Project>{582a285c-84b8-4085-a923-d5044329ad2e}</Project>
+      <Name>Logger</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="TextFile1.txt" />

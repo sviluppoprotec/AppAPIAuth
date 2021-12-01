@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30907.101
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1738
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppAPIAuth.Module", "AppAPIAuth.Module\AppAPIAuth.Module.csproj", "{6B9CA78E-22C6-4BD6-ABE4-07C4CD2B302D}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleNotificheAPI", "ConsoleNotificheAPI\ConsoleNotificheAPI.csproj", "{CF41C3BB-CE7F-47DB-8BA0-609C20A36F38}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppAPIAuth", "ConsoleAppAPIAuth\ConsoleAppAPIAuth.csproj", "{32037F65-7D4D-4FFA-9B9A-4977A487385A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger", "Logger\Logger.csproj", "{582A285C-84B8-4085-A923-D5044329AD2E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +60,12 @@ Global
 		{32037F65-7D4D-4FFA-9B9A-4977A487385A}.EasyTest|Any CPU.Build.0 = Debug|Any CPU
 		{32037F65-7D4D-4FFA-9B9A-4977A487385A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32037F65-7D4D-4FFA-9B9A-4977A487385A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{582A285C-84B8-4085-A923-D5044329AD2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{582A285C-84B8-4085-A923-D5044329AD2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{582A285C-84B8-4085-A923-D5044329AD2E}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{582A285C-84B8-4085-A923-D5044329AD2E}.EasyTest|Any CPU.Build.0 = Release|Any CPU
+		{582A285C-84B8-4085-A923-D5044329AD2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{582A285C-84B8-4085-A923-D5044329AD2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
