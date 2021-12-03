@@ -18,7 +18,7 @@ namespace Logger
                 Directory.CreateDirectory(LogBatse);
             }
             string Timestamp = DateTime.Now.ToString("yyyyMMdd", DateTimeFormatInfo.InvariantInfo);
-            string fileName = Path.Combine(LogBatse, Timestamp);
+            string fileName = $"{Path.Combine(LogBatse, Timestamp)}.log";
             using (StreamWriter streamWriter = new StreamWriter(fileName))
             {
                 streamWriter.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss", DateTimeFormatInfo.InvariantInfo)} {message}");
