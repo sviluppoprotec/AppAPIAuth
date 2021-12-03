@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -16,11 +17,11 @@ namespace Logger
             if(!Directory.Exists(LogBatse)){
                 Directory.CreateDirectory(LogBatse);
             }
-            string Timestamp = DateTime.Now.ToString("YYYYMMDD");
+            string Timestamp = DateTime.Now.ToString("yyyyMMdd", DateTimeFormatInfo.InvariantInfo);
             string fileName = Path.Combine(LogBatse, Timestamp);
             using (StreamWriter streamWriter = new StreamWriter(fileName))
             {
-                streamWriter.WriteLine($"{DateTime.Now.ToString("YYYYMMDDHHmmSS")} {message}");
+                streamWriter.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss", DateTimeFormatInfo.InvariantInfo)} {message}");
                 streamWriter.Close();
             }
         }
