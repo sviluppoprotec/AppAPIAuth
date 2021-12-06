@@ -9,7 +9,7 @@ namespace ConsoleAppAPIAuth
 {
     public class Program
     {
-        static Logger.FileLogger logger = new Logger.FileLogger();
+        static Logger.FileLogger logger = new Logger.FileLogger("ConsoleAppApiAuth");
         public static void Main(string[] args)
         {
             logger.Log($"ConsoleAppAPIAuth start"); 

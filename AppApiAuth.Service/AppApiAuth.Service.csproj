@@ -62,10 +62,17 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AegisImplicitMail, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AIM.1.1.0\lib\netstandard2.0\AegisImplicitMail.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.Cryptography.Pkcs, Version=4.0.3.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Pkcs.4.5.2\lib\net461\System.Security.Cryptography.Pkcs.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -93,6 +100,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="AppApiAuth.Service_TemporaryKey.pfx" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AppApiAuth.resx">
@@ -113,6 +121,10 @@
     <ProjectReference Include="..\Logger\Logger.csproj">
       <Project>{582a285c-84b8-4085-a923-d5044329ad2e}</Project>
       <Name>Logger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MailSender\MailSender.csproj">
+      <Project>{99e7bc47-a872-4cf3-b139-466ab89030ca}</Project>
+      <Name>MailSender</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

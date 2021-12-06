@@ -11,15 +11,22 @@ namespace Logger
 {
     public class FileLogger : LogBase
     {
+        public FileLogger(string logName): base(logName){
+
+        }
         public override void Log(string message)
         {
-            string LogBatse = ConfigurationManager.AppSettings["log-folder"];
-            if (!Directory.Exists(LogBatse))
+            string prefix = string.IsNullOrEmpty(this.Name) ? string.Empty : $" - {this.Name}";
+            string logBase = ConfigurationManager.AppSettings["log-folder"];
+            if(!string.IsNullOrEmpty(logBase)){
+                logBase = $"{logBase}{prefix}";
+            }
+            if (!Directory.Exists(logBase))
             {
-                Directory.CreateDirectory(LogBatse);
+                Directory.CreateDirectory(logBase);
             }
             string Timestamp = DateTime.Now.ToString("yyyyMMdd", DateTimeFormatInfo.InvariantInfo);
-            string fileName = $"{Path.Combine(LogBatse, Timestamp)}.log";
+            string fileName = $"{Path.Combine($"{logBase}", Timestamp)}.log";
             using (StreamWriter streamWriter = new StreamWriter(fileName, true))
             {
                 streamWriter.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss", DateTimeFormatInfo.InvariantInfo)} {message}");

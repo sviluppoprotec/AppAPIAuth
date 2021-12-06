@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppApiAuth.Service", "AppApiAuth.Service\AppApiAuth.Service.csproj", "{7F201F37-B64C-448F-81D6-7639F81C64DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailSender", "MailSender\MailSender.csproj", "{99E7BC47-A872-4CF3-B139-466AB89030CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -82,6 +84,12 @@ Global
 		{7F201F37-B64C-448F-81D6-7639F81C64DE}.EasyTest|Any CPU.Build.0 = Debug|Any CPU
 		{7F201F37-B64C-448F-81D6-7639F81C64DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F201F37-B64C-448F-81D6-7639F81C64DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99E7BC47-A872-4CF3-B139-466AB89030CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99E7BC47-A872-4CF3-B139-466AB89030CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99E7BC47-A872-4CF3-B139-466AB89030CA}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{99E7BC47-A872-4CF3-B139-466AB89030CA}.EasyTest|Any CPU.Build.0 = Debug|Any CPU
+		{99E7BC47-A872-4CF3-B139-466AB89030CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99E7BC47-A872-4CF3-B139-466AB89030CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
