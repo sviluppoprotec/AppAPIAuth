@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Logger;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
 namespace UnitTest
@@ -9,7 +10,7 @@ namespace UnitTest
         [TestMethod]
         public void TestLog()
         {
-            Logger.FileLogger logger = new Logger.FileLogger();
+            FileLogger logger = new FileLogger();
             logger.Log("test");
         }
     }

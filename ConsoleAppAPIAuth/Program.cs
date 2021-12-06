@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace ConsoleAppAPIAuth
 {
-    class Program
+    public class Program
     {
         static Logger.FileLogger logger = new Logger.FileLogger();
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            logger.Log("start"); 
+            logger.Log($"ConsoleAppAPIAuth start"); 
             string telefoniDestinatari = "+393463228369";
             string Messaggio = " mio messaggio";
             //GestioneSMS(telefoniDestinatari, MESSAGE_MEDIUM_QUALITY, Messaggio);
@@ -60,9 +60,9 @@ namespace ConsoleAppAPIAuth
                 }
                 catch(Exception ex)
                 {
-                    System.Console.WriteLine("Errore");
+                    System.Console.WriteLine("ConsoleAppAPIAuth Errore");
 
-                    logger.Log($"error {ex.Message}");
+                    logger.Log($"ConsoleAppAPIAuth error {ex.Message}");
                 }
                 System.Threading.Thread.Sleep(4000);
                 giri++;
