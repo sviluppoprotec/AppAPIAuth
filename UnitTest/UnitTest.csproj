@@ -50,14 +50,27 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ConsoleAppAPIAuth\ConsoleAppAPIAuth.csproj">
+      <Project>{32037F65-7D4D-4FFA-9B9A-4977A487385A}</Project>
+      <Name>ConsoleAppAPIAuth</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Logger\Logger.csproj">
       <Project>{582a285c-84b8-4085-a923-d5044329ad2e}</Project>
       <Name>Logger</Name>

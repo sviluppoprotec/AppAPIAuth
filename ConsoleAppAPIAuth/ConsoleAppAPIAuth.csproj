@@ -77,6 +77,8 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -92,10 +94,17 @@
     <Compile Include="Classi\NotificaTelegram.cs" />
     <Compile Include="Classi\SendNotificaSMS.cs" />
     <Compile Include="Classi\SMSAruba.cs" />
+    <Compile Include="Classi\SmsSender\SmsSenderHandler.cs" />
+    <Compile Include="Classi\SmsSender\SmsSenderHandlerApi.cs" />
+    <Compile Include="Connected Services\SmsSenderService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Model\Avvisi.cs" />
     <Compile Include="Model\EsitoSMS.cs" />
     <Compile Include="Model\QualitaInvio.cs" />
-    <Compile Include="Model\SendSMS.cs" />
+    <Compile Include="Model\SendSMSAruba.cs" />
     <Compile Include="Model\SMSSent.cs" />
     <Compile Include="Model\SMSStatus.cs" />
     <Compile Include="Model\StatoInvio.cs" />
@@ -107,6 +116,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Connected Services\SmsSenderService\ConsoleAppAPIAuth.SmsSenderService.CreditoResiduoResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SmsSenderService\ConsoleAppAPIAuth.SmsSenderService.InvioSmsResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SmsSenderService\ConsoleAppAPIAuth.SmsSenderService.StatoSmsResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SmsSenderService\SMS.wsdl" />
     <None Include="ConsoleAppAPIAuth_TemporaryKey.pfx" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -121,6 +140,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Connected Services\SmsSenderService\configuration91.svcinfo" />
+    <None Include="Connected Services\SmsSenderService\configuration.svcinfo" />
+    <None Include="Connected Services\SmsSenderService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="TextFile1.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +159,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\SmsSenderService\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

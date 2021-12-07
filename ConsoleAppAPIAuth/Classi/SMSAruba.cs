@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace ConsoleAppAPIAuth.Classi
 {
-    class SMSAruba
+    public class SMSAruba
     {
         //public const string HOSTNAME = "adminsms.aruba.it"; //"adminsms.aruba.it"; 
         //public const string USERNAME = "Sms52333"; //"your@login";1913233@aruba.it   ISUQ88   Sms52333
@@ -130,7 +130,7 @@ namespace ConsoleAppAPIAuth.Classi
             //SMSSent smsSent = null;
             String[] auth = authenticate(MY_USERNAME, MY_PASSWORD);
 
-            SendSMS sendSMSRequest = new SendSMS();
+            SendSMSAruba sendSMSRequest = new SendSMSAruba();
             sendSMSRequest.message = Messaggio;
             sendSMSRequest.message_type = message_type;
             sendSMSRequest.recipient = new String[] { telefoniDestinatari };
@@ -189,7 +189,7 @@ namespace ConsoleAppAPIAuth.Classi
         /**
          * Sends an SMS
          */
-        static SMSSent mysendSMS(String[] auth, SendSMS sendSMS)
+        static SMSSent mysendSMS(String[] auth, SendSMSAruba sendSMS)
         {
             using (var wb = new WebClient())
             {

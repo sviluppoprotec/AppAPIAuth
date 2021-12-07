@@ -1,4 +1,6 @@
-﻿using Logger;
+﻿using ConsoleAppAPIAuth.Classi;
+using ConsoleAppAPIAuth.Classi.SmsSender;
+using Logger;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
@@ -15,6 +17,34 @@ namespace UnitTest
                 FileLogger logger = new FileLogger("Test");
                 logger.Log("test");
             } catch (Exception ex){
+                ;
+            }
+        }
+
+        [TestMethod]
+        public void TestAruba()
+        {
+            try
+            {
+                var r = SMSAruba.GestioneSMS("3288279496", "", "prova");
+                Assert.IsTrue(r.result == "OK");
+            }
+            catch (Exception ex)
+            {
+                ;
+            }
+        }
+
+        [TestMethod]
+        public void TestSmsSender()
+        {
+            try
+            {
+                var r = SmsSenderHandler.Invia(new string[] { "3288279496" }, "Messaggio corpulento Messaggio corpulento Messaggio corpulento Messaggio corpulento Messaggio corpulento Messaggio corpulento");
+                Assert.IsTrue(r.Successo);
+            }
+            catch (Exception ex)
+            {
                 ;
             }
         }
