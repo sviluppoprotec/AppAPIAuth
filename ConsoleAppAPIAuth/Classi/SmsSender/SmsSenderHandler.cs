@@ -28,5 +28,13 @@ namespace ConsoleAppAPIAuth.Classi.SmsSender
             logger.Log(JsonConvert.SerializeObject(res));
             return res;
         }
+
+        public static CreditoResiduoResult GetCreditoResiduo()
+        {
+            SMSSoapClient client = new SMSSoapClient();
+            var res = client.CreditoResiduo(MY_USERNAME, MY_PASSWORD);
+            logger.Log(JsonConvert.SerializeObject(res));
+            return res;
+        }
     }
 }

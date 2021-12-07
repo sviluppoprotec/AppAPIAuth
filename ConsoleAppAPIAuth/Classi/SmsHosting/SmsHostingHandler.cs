@@ -48,6 +48,12 @@ namespace ConsoleAppAPIAuth.Classi.SmsHosting
         public SmsHostingCheckMessageResponseMetadata Metadata { get; set; }
         [JsonProperty("smsList")]
         public List<SmsHostingCheckMessageResponseSms> SmsList { get; set; }
+
+
+        [JsonProperty("errorMsg")]
+        public string ErrorMsg { get; set; }
+        [JsonProperty("errorCode")]
+        public int ErrorCode { get; set; }
     }
 
     public class SmsHostingCheckMessageResponseMetadata
@@ -82,6 +88,22 @@ public class SmsHostingCheckMessageResponseSms
         public string transactionId { get; set; }
         [JsonProperty("price")]
         public decimal price { get; set; }
+    }
+
+
+    public class SmsHostingCreditResponse{
+        [JsonProperty("cost")]
+        public decimal Cost { get; set; }
+        [JsonProperty("userCredit")]
+        public decimal UserCredit { get; set; }
+        [JsonProperty("smsCount")]
+        public int SmsCount { get; set; }
+
+
+        [JsonProperty("errorMsg")]
+        public string ErrorMsg { get; set; }
+        [JsonProperty("errorCode")]
+        public int ErrorCode { get; set; }
     }
 
 public class SmsHostingHandler
@@ -135,6 +157,22 @@ public class SmsHostingHandler
             SmsHostingCheckMessageResponse checkSMSResponse =
                 JsonConvert.DeserializeObject<SmsHostingCheckMessageResponse>(response.Content);
             return checkSMSResponse;
+        }
+
+        public static SmsHostingCreditResponse CheckCredit(string recipient, string testo)
+        {
+            var client = new RestClient("https://api.smshosting.it/rest/api/sms/estimate");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+            request.AddHeader("Authorization", $"Basic {EncodeTo64($"{AUTH_KEY}:{AUTH_SECRET}")}");
+            request.AddParameter("to", recipient);
+            request.AddParameter("text", testo);
+            IRestResponse response = client.Execute(request);
+            logger.Log(response.Content);
+            SmsHostingCreditResponse checkCreditResponse =
+                JsonConvert.DeserializeObject<SmsHostingCreditResponse>(response.Content);
+            return checkCreditResponse;
         }
 
         static internal string EncodeTo64(string toEncode)

@@ -65,6 +65,20 @@ namespace UnitTest
         }
 
         [TestMethod]
+        public void TestSmsSenderCredito()
+        {
+            try
+            {
+                var r = SmsSenderHandler.GetCreditoResiduo();
+                Assert.IsTrue(string.IsNullOrEmpty(r.CodiceErrore));
+            }
+            catch (Exception ex)
+            {
+                ;
+            }
+        }
+
+        [TestMethod]
         public void TestSmsHosting()
         {
             try
@@ -93,7 +107,20 @@ namespace UnitTest
         }
 
 
+        [TestMethod]
+        public void TestSmsHostingCredit()
+        {
+            try
+            {
+                var r = SmsHostingHandler.CheckCredit("393288279496", "Messaggio corpulento inviato col progetto di test");
+                Assert.IsTrue(r.ErrorCode == 0);
+            }
+            catch (Exception ex)
+            {
+                ;
+            }
+        }
 
-        
+
     }
 }
