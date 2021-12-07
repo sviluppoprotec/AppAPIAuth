@@ -51,6 +51,20 @@ namespace UnitTest
         }
 
         [TestMethod]
+        public void TestSmsSenderSmsInfo()
+        {
+            try
+            {
+                var r = SmsSenderHandler.GetStatoSms("F37E6BF10F47436B95E16C445DE1C5AB");
+                Assert.IsTrue(string.IsNullOrEmpty(r.CodiceErrore));
+            }
+            catch (Exception ex)
+            {
+                ;
+            }
+        }
+
+        [TestMethod]
         public void TestSmsHosting()
         {
             try
@@ -63,5 +77,23 @@ namespace UnitTest
                 ;
             }
         }
+
+        [TestMethod]
+        public void TestSmsHostingSmsInfo()
+        {
+            try
+            {
+                var r = SmsHostingHandler.CheckSms("1797673445");
+                Assert.IsTrue(r.SmsList.Count > 0);
+            }
+            catch (Exception ex)
+            {
+                ;
+            }
+        }
+
+
+
+        
     }
 }
