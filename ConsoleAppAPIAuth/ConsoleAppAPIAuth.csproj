@@ -74,11 +74,15 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp, Version=106.13.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.13.0\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -94,8 +98,8 @@
     <Compile Include="Classi\NotificaTelegram.cs" />
     <Compile Include="Classi\SendNotificaSMS.cs" />
     <Compile Include="Classi\SMSAruba.cs" />
+    <Compile Include="Classi\SmsHosting\SmsHostingHandler.cs" />
     <Compile Include="Classi\SmsSender\SmsSenderHandler.cs" />
-    <Compile Include="Classi\SmsSender\SmsSenderHandlerApi.cs" />
     <Compile Include="Connected Services\SmsSenderService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -166,5 +170,6 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\SmsSenderService\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

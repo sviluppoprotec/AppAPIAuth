@@ -1,4 +1,5 @@
 ﻿using ConsoleAppAPIAuth.Classi;
+using ConsoleAppAPIAuth.Classi.SmsHosting;
 using ConsoleAppAPIAuth.Classi.SmsSender;
 using Logger;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -42,6 +43,20 @@ namespace UnitTest
             {
                 var r = SmsSenderHandler.Invia(new string[] { "3288279496", "3396140489" }, "Messaggio corpulento inviato col progetto di test");
                 Assert.IsTrue(r.Successo);
+            }
+            catch (Exception ex)
+            {
+                ;
+            }
+        }
+
+        [TestMethod]
+        public void TestSmsHosting()
+        {
+            try
+            {
+                var r = SmsHostingHandler.Invia("+393288279496", "Messaggio corpulento inviato col progetto di test");
+                Assert.IsTrue(r.ErrorCode == 0);
             }
             catch (Exception ex)
             {
