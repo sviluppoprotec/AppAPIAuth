@@ -13,6 +13,9 @@ namespace ConsoleAppAPIAuth.Model
         
         public string telefoniDestinatari { get; set; }
 
+
+        public string tipologiaSMS { get; set; }
+
         public string CORPOSMS { get; set; }
 
         public int QualitaInvio { get; set; }

@@ -27,7 +27,7 @@ namespace UnitTest
         {
             try
             {
-                var r = SMSAruba.GestioneSMS("3288279496", "", "prova");
+                var r = SMSAruba.GestioneSMS("3288279496", "N", "prova");
                 Assert.IsTrue(r.result == "OK");
             }
             catch (Exception ex)
@@ -55,7 +55,7 @@ namespace UnitTest
         {
             try
             {
-                var r = SmsSenderHandler.GetStatoSms("F37E6BF10F47436B95E16C445DE1C5AB");
+                var r = SmsSenderHandler.GetStatoSms("69859AE07BA7435280D05D53483657F0");
                 Assert.IsTrue(string.IsNullOrEmpty(r.CodiceErrore));
             }
             catch (Exception ex)
@@ -83,7 +83,7 @@ namespace UnitTest
         {
             try
             {
-                var r = SmsHostingHandler.CheckSms("1797673445");
+                var r = SmsHostingHandler.CheckSms("1798575037");
                 Assert.IsTrue(r.SmsList.Count > 0);
             }
             catch (Exception ex)

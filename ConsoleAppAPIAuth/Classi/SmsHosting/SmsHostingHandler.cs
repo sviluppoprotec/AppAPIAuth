@@ -86,7 +86,7 @@ public class SmsHostingCheckMessageResponseSms
 
 public class SmsHostingHandler
     {
-        private static Logger.FileLogger logger = new Logger.FileLogger("SMSHANDLER");
+        private static Logger.FileLogger logger = new Logger.FileLogger("SMSHOSTING");
         private static string AUTH_KEY = "SMSHFKEJ2F5PCJIMDIL7K";
         private static string AUTH_SECRET = "2YRUUKBNBHTRCXLKVYTFX5LI2HYHMOOL";
 
