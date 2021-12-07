@@ -11,7 +11,7 @@ namespace ConsoleAppAPIAuth.Classi.SmsSender
     {
         public static String MY_USERNAME = "AnovelliProtec";
         public static String MY_PASSWORD = "Floridiana00135";
-        public static String Sender = "3396140489";
+        public static String Sender = "Sms sistema";
         public static InvioSmsResult Invia(string[] recipient, string testo){
             SMSSoapClient client = new SMSSoapClient();
             return client.InvioSms(MY_USERNAME, MY_PASSWORD, Sender, recipient, testo);

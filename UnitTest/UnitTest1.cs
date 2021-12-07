@@ -40,7 +40,7 @@ namespace UnitTest
         {
             try
             {
-                var r = SmsSenderHandler.Invia(new string[] { "3288279496" }, "Messaggio corpulento Messaggio corpulento Messaggio corpulento Messaggio corpulento Messaggio corpulento Messaggio corpulento");
+                var r = SmsSenderHandler.Invia(new string[] { "3288279496", "3396140489" }, "Messaggio corpulento inviato col progetto di test");
                 Assert.IsTrue(r.Successo);
             }
             catch (Exception ex)
