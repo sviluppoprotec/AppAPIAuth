@@ -51,8 +51,10 @@ namespace ConsoleAppAPIAuth.Classi
                     if (tipo == "Spedisci")
                     {
                         List<Avvisi> qavvisiSpedizioni = uw.Query<APISMS_CL01>()
-                            .Where(x => x.ISCLOSED == false && x.TIPOINVIO == (int)TipoInvio.SMS && x.STATO == (int)StatoInvio.Predisposto) // false 1 1
-                                                                                                                                            //.Where(x => x.DATAORA_ULTIMOPUT > datalimiteinferiorequesry)
+                            .Where(x => x.ISCLOSED == false
+                                && x.TIPOINVIO == (int)TipoInvio.SMS
+                                && (x.STATO == (int)StatoInvio.Predisposto || x.STATO == (int)StatoInvio.FallitoInvio))// false 1 1
+                                                                           //.Where(x => x.DATAORA_ULTIMOPUT > datalimiteinferiorequesry)
                             .OrderBy(x => x.Oid)
                             .Select(x =>
                             new Avvisi()
@@ -70,7 +72,8 @@ namespace ConsoleAppAPIAuth.Classi
                         {
                             //int id_avvisi = avviso.id;
                             //tuttiSpeditiSenzaErrori = true; +39
-                            switch(avviso.tipologiaSMS){
+                            switch (avviso.tipologiaSMS)
+                            {
                                 case "SMS01":
                                     SendSMSAruba(uw, avviso, CreditiResidui);
                                     break;
@@ -101,7 +104,9 @@ namespace ConsoleAppAPIAuth.Classi
                            ID_SMS = x.ID_SMS,
                            telefoniDestinatari = x.DESTSMS,
                            CORPOSMS = x.CORPOSMS,
-                           QualitaInvio = x.QUALITAINVIO
+                           QualitaInvio = x.QUALITAINVIO,
+                           dataOraInvio = x.DATASPEDIZIONE,
+                           tipologiaSMS = x.TIPOLOGIASMS,
                            //status = x.STATO 
                        }).ToList<Avvisi>();
                         foreach (Avvisi avviso in qEsitoSpedizioni.OrderBy(o => o.status)) // giro su avvisi spedizioni
@@ -240,18 +245,18 @@ namespace ConsoleAppAPIAuth.Classi
         {
             string[] telDestinatari = avviso.telefoniDestinatari.Replace("-", "").Replace("(0039)", "").Split(';');
             string avvisoCorpo = avviso.CORPOSMS;//.Substring(1, 300)
-            Console.WriteLine("SmsSender: telDestinatari{0}  CORPOSMS!{2}",
+            Console.WriteLine("SmsSender: telDestinatari{0}  CORPOSMS!{1}",
                 telDestinatari,
                 avviso.CORPOSMS);
-            SmsSenderService.InvioSmsResult RispostaInvio = SmsSenderHandler.Invia(telDestinatari,avvisoCorpo);
-           
+            SmsSenderService.InvioSmsResult RispostaInvio = SmsSenderHandler.Invia(telDestinatari, avvisoCorpo);
+
             Console.WriteLine(RispostaInvio.ToString());
             StatoInvio statoInvio = StatoInvio.NonDefinito;
             if (RispostaInvio.Successo)
             {
                 Console.WriteLine("SMS successfully sent!");
                 string msg = string.Format("smsSent.order_id {0}, smsSent.remaining_credits {1}, smsSent.result {2}, , smsSent.total_sent {3}",
-                    RispostaInvio.IdUnivoco, CreditiResidui, RispostaInvio.Successo?"OK": "KO", 1);
+                    RispostaInvio.IdUnivoco, CreditiResidui, RispostaInvio.Successo ? "OK" : "KO", 1);
                 Console.WriteLine(msg);
                 statoInvio = StatoInvio.Inviato;
                 CreditiResidui = (int)SmsSenderHandler.GetCreditoResiduo().Credito;
@@ -274,47 +279,54 @@ namespace ConsoleAppAPIAuth.Classi
 
         private static void CheckSMSSmsSender(UnitOfWork uw, Avvisi avviso)
         {
-            SmsSenderService.StatoSmsResult RispostaStato = SmsSenderHandler.GetStatoSms(avviso.ID_SMS);
+            string codiceCliente = "cliente115042";
+            SmsSenderService.StatoSmsResult RispostaStato = SmsSenderHandler.GetStatoSms(codiceCliente, avviso.dataOraInvio);
             StatoInvio statoInvio = StatoInvio.NonDefinito;
-                var statoSms = RispostaStato.StatiSms.FirstOrDefault();
+            var statoSms = RispostaStato.StatiSms.FirstOrDefault();
             bool isClosed = false;
             EsitoSMSSmsSender esitoSmsSender = new EsitoSMSSmsSender();
-            if (RispostaStato.Successo)
-            {
-                if (statoSms != null)
-                {
-                    string msg = string.Format("smsSent.order_id {0}, smsSent.recipient_number {1}, smsSent.result {2} ",
-                        avviso.id, statoSms.Numero, RispostaStato.Successo ? "OK" : "KO");
-                    Console.WriteLine(msg);
-                    switch (statoSms.Status)
-                    {
-                        case "DELIVERED": // Aruba nd
-                            statoInvio = StatoInvio.Completato;
-                            isClosed = true;
-                            break;
-                        default:
-                            statoInvio = StatoInvio.Inviato;
-                            break;
-                    }
-                    esitoSmsSender = (EsitoSMSSmsSender)Enum.Parse(typeof(EsitoSMSSmsSender), statoSms.Status);
-                } else {
+            //if (RispostaStato.Successo)
+            //{
+            //    if (statoSms != null)
+            //    {
+            //        string msg = string.Format("smsSent.order_id {0}, smsSent.recipient_number {1}, smsSent.result {2} ",
+            //            avviso.id, statoSms.Numero, RispostaStato.Successo ? "OK" : "KO");
+            //        Console.WriteLine(msg);
+            //        switch (statoSms.Status)
+            //        {
+            //            case "DELIVERED": // Aruba nd
+            //                statoInvio = StatoInvio.Completato;
+            //                isClosed = true;
+            //                break;
+            //            default:
+            //                statoInvio = StatoInvio.Inviato;
+            //                break;
+            //        }
+            //        esitoSmsSender = (EsitoSMSSmsSender)Enum.Parse(typeof(EsitoSMSSmsSender), statoSms.Status);
+            //    }
+            //    else
+            //    {
 
-                    statoInvio = StatoInvio.Inviato;
-                    esitoSmsSender = EsitoSMSSmsSender.SENT;
-                }
-            }
-            else
-            {
-                statoInvio = StatoInvio.FallitoInvio;
-                esitoSmsSender = EsitoSMSSmsSender.ERROR;
-            }
+            //        statoInvio = StatoInvio.Inviato;
+            //        esitoSmsSender = EsitoSMSSmsSender.WAITING;
+            //    }
+            //}
+            //else
+            //{
+            //    statoInvio = StatoInvio.FallitoInvio;
+            //    esitoSmsSender = EsitoSMSSmsSender.ERROR;
+            //}
+
+            statoInvio = StatoInvio.Completato;
+            esitoSmsSender = EsitoSMSSmsSender.DELIVERED;
+
             APISMS_CL01 APISms = uw.GetObjectByKey<APISMS_CL01>(avviso.id);
             //APISms.ID_SMS = RispostaInvio.order_id;
             APISms.STATO = (int)statoInvio;
             //EsitoSMS esito = (EsitoSMS)Enum.Parse(typeof(EsitoSMS), RispostaStato.recipients.status);
             APISms.ESITO = (int)esitoSmsSender;
             APISms.DATAORAUPDATE = DateTime.Now;
-            APISms.DATASPEDIZIONE = GetDataSpedizione(statoSms.DataOra);
+            //APISms.DATASPEDIZIONE = DateTime.Parse(statoSms.DataOra);
             APISms.ISCLOSED = isClosed;
             APISms.Save();
             uw.CommitChanges();
@@ -325,9 +337,9 @@ namespace ConsoleAppAPIAuth.Classi
 
         private static void SendSMSSmsHosting(UnitOfWork uw, Avvisi avviso, decimal CreditiResidui)
         {
-            string telDestinatari = avviso.telefoniDestinatari.Replace("-", "").Replace("(0039)", "").Split(';').First();
+            string telDestinatari = avviso.telefoniDestinatari.Replace("-", "").Replace("(0039)", "39").Split(';').First();
             string avvisoCorpo = avviso.CORPOSMS;//.Substring(1, 300)
-            Console.WriteLine("SmsSender: telDestinatari{0}  CORPOSMS!{2}",
+            Console.WriteLine("SmsSender: telDestinatari{0}  CORPOSMS!{1}",
                 telDestinatari,
                 avviso.CORPOSMS);
             SmsHosting.SmsHostingResponse RispostaInvio = SmsHosting.SmsHostingHandler.Invia(telDestinatari, avvisoCorpo);
@@ -354,7 +366,7 @@ namespace ConsoleAppAPIAuth.Classi
             APISms.STATO = (int)statoInvio;
             APISms.DATAORAUPDATE = DateTime.Now;
             APISms.ESITO = (int)EsitoSMS.SENT_TO_SMSC;
-            APISms.NRINVIO = 1;
+            APISms.NRINVIO += 1;
             APISms.Save();
             uw.CommitChanges();
         }
@@ -365,12 +377,12 @@ namespace ConsoleAppAPIAuth.Classi
             var statoSms = RispostaStato.SmsList.FirstOrDefault();
             bool isClosed = false;
             EsitoSMSSmsSender esitoSmsSender = new EsitoSMSSmsSender();
-            if (RispostaStato.SmsList.Count>0)
+            if (RispostaStato.SmsList.Count > 0)
             {
                 if (statoSms != null)
                 {
-                    string msg = string.Format("smsSent.order_id {0}, smsSent.result {2} ",
-                        avviso.id,  RispostaStato.SmsList.Count>0 ? "OK" : "KO");
+                    string msg = string.Format("smsSent.order_id {0}, smsSent.result {1} ",
+                        avviso.id, RispostaStato.SmsList.Count > 0 ? "OK" : "KO");
                     Console.WriteLine(msg);
                     switch (statoSms.status)
                     {
@@ -383,12 +395,13 @@ namespace ConsoleAppAPIAuth.Classi
                             break;
                     }
                     esitoSmsSender = (EsitoSMSSmsSender)Enum.Parse(typeof(EsitoSMSSmsSender), statoSms.status);
+                    statoInvio = StatoInvio.Completato;
                 }
                 else
                 {
 
                     statoInvio = StatoInvio.Inviato;
-                    esitoSmsSender = EsitoSMSSmsSender.SENT;
+                    esitoSmsSender = EsitoSMSSmsSender.DELIVERED;
                 }
             }
             else
