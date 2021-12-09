@@ -106,6 +106,7 @@ namespace ConsoleAppAPIAuth.Classi
                            CORPOSMS = x.CORPOSMS,
                            QualitaInvio = x.QUALITAINVIO,
                            dataOraInvio = x.DATASPEDIZIONE,
+                           dataOraUpdate = x.DATAORAUPDATE,
                            tipologiaSMS = x.TIPOLOGIASMS,
                            //status = x.STATO 
                        }).ToList<Avvisi>();
@@ -273,6 +274,9 @@ namespace ConsoleAppAPIAuth.Classi
             APISms.DATAORAUPDATE = DateTime.Now;
             APISms.ESITO = (int)EsitoSMS.SENT_TO_SMSC;
             APISms.NRINVIO = 1;
+            APISms.CreditoResiduo = CreditiResidui;
+            APISms.Costo = Math.Floor( (decimal)avviso.CORPOSMS.Length/160);
+            APISms.Operatore = "SmsSender";
             APISms.Save();
             uw.CommitChanges();
         }
@@ -285,37 +289,37 @@ namespace ConsoleAppAPIAuth.Classi
             var statoSms = RispostaStato.StatiSms.FirstOrDefault();
             bool isClosed = false;
             EsitoSMSSmsSender esitoSmsSender = new EsitoSMSSmsSender();
-            //if (RispostaStato.Successo)
-            //{
-            //    if (statoSms != null)
-            //    {
-            //        string msg = string.Format("smsSent.order_id {0}, smsSent.recipient_number {1}, smsSent.result {2} ",
-            //            avviso.id, statoSms.Numero, RispostaStato.Successo ? "OK" : "KO");
-            //        Console.WriteLine(msg);
-            //        switch (statoSms.Status)
-            //        {
-            //            case "DELIVERED": // Aruba nd
-            //                statoInvio = StatoInvio.Completato;
-            //                isClosed = true;
-            //                break;
-            //            default:
-            //                statoInvio = StatoInvio.Inviato;
-            //                break;
-            //        }
-            //        esitoSmsSender = (EsitoSMSSmsSender)Enum.Parse(typeof(EsitoSMSSmsSender), statoSms.Status);
-            //    }
-            //    else
-            //    {
+            if (RispostaStato.Successo)
+            {
+                if (statoSms != null)
+                {
+                    string msg = string.Format("smsSent.order_id {0}, smsSent.recipient_number {1}, smsSent.result {2} ",
+                        avviso.id, statoSms.Numero, RispostaStato.Successo ? "OK" : "KO");
+                    Console.WriteLine(msg);
+                    switch (statoSms.Status)
+                    {
+                        case "DELIVERED": // Aruba nd
+                            statoInvio = StatoInvio.Completato;
+                            isClosed = true;
+                            break;
+                        default:
+                            statoInvio = StatoInvio.Inviato;
+                            break;
+                    }
+                    esitoSmsSender = (EsitoSMSSmsSender)Enum.Parse(typeof(EsitoSMSSmsSender), statoSms.Status);
+                }
+                else
+                {
 
-            //        statoInvio = StatoInvio.Inviato;
-            //        esitoSmsSender = EsitoSMSSmsSender.WAITING;
-            //    }
-            //}
-            //else
-            //{
-            //    statoInvio = StatoInvio.FallitoInvio;
-            //    esitoSmsSender = EsitoSMSSmsSender.ERROR;
-            //}
+                    statoInvio = StatoInvio.Inviato;
+                    esitoSmsSender = EsitoSMSSmsSender.WAITING;
+                }
+            }
+            else
+            {
+                statoInvio = StatoInvio.FallitoInvio;
+                esitoSmsSender = EsitoSMSSmsSender.ERROR;
+            }
 
             statoInvio = StatoInvio.Completato;
             esitoSmsSender = EsitoSMSSmsSender.DELIVERED;
@@ -339,6 +343,7 @@ namespace ConsoleAppAPIAuth.Classi
         {
             string telDestinatari = avviso.telefoniDestinatari.Replace("-", "").Replace("(0039)", "39").Split(';').First();
             string avvisoCorpo = avviso.CORPOSMS;//.Substring(1, 300)
+            decimal costo = 0;
             Console.WriteLine("SmsSender: telDestinatari{0}  CORPOSMS!{1}",
                 telDestinatari,
                 avviso.CORPOSMS);
@@ -353,7 +358,9 @@ namespace ConsoleAppAPIAuth.Classi
                     sms?.Id, CreditiResidui, RispostaInvio.ErrorCode == 0 ? "OK" : "KO", 1);
                 Console.WriteLine(msg);
                 statoInvio = StatoInvio.Inviato;
-                CreditiResidui = SmsHosting.SmsHostingHandler.CheckCredit(avviso.telefoniDestinatari, avviso.CORPOSMS).UserCredit;
+                var creditData = SmsHosting.SmsHostingHandler.CheckCredit(avviso.telefoniDestinatari, avviso.CORPOSMS);
+                CreditiResidui = creditData.UserCredit;
+                costo = creditData.Cost;
             }
             else
             {
@@ -367,6 +374,9 @@ namespace ConsoleAppAPIAuth.Classi
             APISms.DATAORAUPDATE = DateTime.Now;
             APISms.ESITO = (int)EsitoSMS.SENT_TO_SMSC;
             APISms.NRINVIO += 1;
+            APISms.CreditoResiduo = CreditiResidui;
+            APISms.Costo = costo;
+            APISms.Operatore = "SmsHosting";
             APISms.Save();
             uw.CommitChanges();
         }
