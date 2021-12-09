@@ -106,7 +106,21 @@ namespace ConsoleAppAPIAuth.Classi
                        }).ToList<Avvisi>();
                         foreach (Avvisi avviso in qEsitoSpedizioni.OrderBy(o => o.status)) // giro su avvisi spedizioni
                         {
-                            CheckSMSAruba(uw, avviso);
+                            switch (avviso.tipologiaSMS)
+                            {
+                                case "SMS01":
+                                    CheckSMSAruba(uw, avviso);
+                                    break;
+                                case "SMS02":
+                                    CheckSMSSmsSender(uw, avviso);
+                                    break;
+                                case "SMS03":
+                                    CheckSMSSmsHosting(uw, avviso);
+                                    break;
+                                default:
+                                    logger.Log($"ERRORE: Tipologia sms {avviso.tipologiaSMS} non definita");
+                                    break;
+                            }
                         }
                         //*******************************************************************************************
                         //AuditTrailService.Instance.QueryCurrentUserName += OnAuditTrailServiceInstanceQueryCurrentUserName;
@@ -240,8 +254,7 @@ namespace ConsoleAppAPIAuth.Classi
                     RispostaInvio.IdUnivoco, CreditiResidui, RispostaInvio.Successo?"OK": "KO", 1);
                 Console.WriteLine(msg);
                 statoInvio = StatoInvio.Inviato;
-                // TODO: come avere i crediti residui
-                //CreditiResidui = RispostaInvio.remaining_credits;
+                CreditiResidui = (int)SmsSenderHandler.GetCreditoResiduo().Credito;
             }
             else
             {
@@ -310,7 +323,7 @@ namespace ConsoleAppAPIAuth.Classi
         #region SmsHosting
 
 
-        private static void SendSMSSmsHosting(UnitOfWork uw, Avvisi avviso, int CreditiResidui)
+        private static void SendSMSSmsHosting(UnitOfWork uw, Avvisi avviso, decimal CreditiResidui)
         {
             string telDestinatari = avviso.telefoniDestinatari.Replace("-", "").Replace("(0039)", "").Split(';').First();
             string avvisoCorpo = avviso.CORPOSMS;//.Substring(1, 300)
@@ -328,8 +341,7 @@ namespace ConsoleAppAPIAuth.Classi
                     sms?.Id, CreditiResidui, RispostaInvio.ErrorCode == 0 ? "OK" : "KO", 1);
                 Console.WriteLine(msg);
                 statoInvio = StatoInvio.Inviato;
-                // TODO: come avere i crediti residui
-                //CreditiResidui = RispostaInvio.remaining_credits;
+                CreditiResidui = SmsHosting.SmsHostingHandler.CheckCredit(avviso.telefoniDestinatari, avviso.CORPOSMS).UserCredit;
             }
             else
             {
