@@ -204,6 +204,26 @@ namespace AppAPIAuth.Module.BusinessObjects
             get { return fID_SMS; }
             set { SetPropertyValue<string>(nameof(ID_SMS), ref fID_SMS, value); }
         }
+        string fOperatore;
+        public string Operatore
+        {
+            get { return fOperatore; }
+            set { SetPropertyValue<string>(nameof(Operatore), ref fOperatore, value); }
+        }
+
+        decimal fCreditoResiduo;
+        public decimal CreditoResiduo
+        {
+            get { return fCreditoResiduo; }
+            set { SetPropertyValue<decimal>(nameof(CreditoResiduo), ref fCreditoResiduo, value); }
+        }
+
+        decimal fCosto;
+        public decimal Costo
+        {
+            get { return fCosto; }
+            set { SetPropertyValue<decimal>(nameof(Costo), ref fCosto, value); }
+        }
     }
 
  
