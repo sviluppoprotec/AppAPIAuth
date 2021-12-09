@@ -13,9 +13,14 @@ namespace ConsoleAppAPIAuth.Model
         
         public string telefoniDestinatari { get; set; }
 
+
+        public string tipologiaSMS { get; set; }
+
         public string CORPOSMS { get; set; }
 
         public int QualitaInvio { get; set; }
+
+        public DateTime dataOraInvio { get; set; }
         public SMSStatus status { get; set; } // nome dell'tente dellapplicativo
         //RispostaInvio =SMSAruba.GestioneSMS(telefoniDestinatari: APISms.DESTSMS, SMSAruba.MESSAGE_HIGH_QUALITY, Messaggio: APISms.CORPOSMS);
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleAppAPIAuth.Model
 {
-    public class SendSMS
+    public class SendSMSAruba
     {
         /** The message body */
         public String message;
