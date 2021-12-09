@@ -275,7 +275,7 @@ namespace ConsoleAppAPIAuth.Classi
             APISms.ESITO = (int)EsitoSMS.SENT_TO_SMSC;
             APISms.NRINVIO = 1;
             APISms.CreditoResiduo = CreditiResidui;
-            APISms.Costo = Math.Floor( (decimal)avviso.CORPOSMS.Length/160);
+            APISms.Costo = Math.Floor( (decimal)avviso.CORPOSMS.Length/160) + 1;
             APISms.Operatore = "SmsSender";
             APISms.Save();
             uw.CommitChanges();
@@ -284,7 +284,7 @@ namespace ConsoleAppAPIAuth.Classi
         private static void CheckSMSSmsSender(UnitOfWork uw, Avvisi avviso)
         {
             string codiceCliente = "cliente115042";
-            SmsSenderService.StatoSmsResult RispostaStato = SmsSenderHandler.GetStatoSms(codiceCliente, avviso.dataOraInvio);
+            SmsSenderService.StatoSmsResult RispostaStato = SmsSenderHandler.GetStatoSms(codiceCliente, avviso.dataOraUpdate);
             StatoInvio statoInvio = StatoInvio.NonDefinito;
             var statoSms = RispostaStato.StatiSms.FirstOrDefault();
             bool isClosed = false;
