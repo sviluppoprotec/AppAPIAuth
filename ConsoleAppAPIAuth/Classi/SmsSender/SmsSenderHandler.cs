@@ -30,6 +30,7 @@ namespace ConsoleAppAPIAuth.Classi.SmsSender
             }
             catch (Exception ex)
             {
+                logger.Log(ex.Message);
                 return new InvioSmsResult()
                 {
                     Successo = false,
@@ -50,6 +51,7 @@ namespace ConsoleAppAPIAuth.Classi.SmsSender
             }
             catch (Exception ex)
             {
+                logger.Log(ex.Message);
                 return new StatoSmsResult()
                 {
                     Successo = false,
@@ -69,6 +71,7 @@ namespace ConsoleAppAPIAuth.Classi.SmsSender
             }
             catch (Exception ex)
             {
+                logger.Log(ex.Message);
                 return new CreditoResiduoResult()
                 {
                     Successo = false,
