@@ -24,7 +24,8 @@ namespace ConsoleAppAPIAuth.Classi.SmsSender
                 {
                     SMSSoapClient client = new SMSSoapClient();
                     res = client.InvioSms(MY_USERNAME, MY_PASSWORD, Sender, recipient, m);
-                    logger.Log(JsonConvert.SerializeObject(res));
+                    string esito = res.Successo ? "OK" : res.MessaggioErrore;
+                    logger.Log($"INVIO A {recipient} ESITO {esito} {JsonConvert.SerializeObject(res)}");
                 }
                 return res;
             }
@@ -46,7 +47,7 @@ namespace ConsoleAppAPIAuth.Classi.SmsSender
                 string id = $"{CodiceCliente}{dataInvio.Hour}{dataInvio.Minute.ToString().PadLeft(2,'0')}";
                 SMSSoapClient client = new SMSSoapClient();
                 var res = client.StatoSms(MY_USERNAME, MY_PASSWORD, id);
-                logger.Log(JsonConvert.SerializeObject(res));
+                logger.Log($"CHECK SMS {JsonConvert.SerializeObject(res)}");
                 return res;
             }
             catch (Exception ex)

@@ -66,7 +66,7 @@ namespace ConsoleAppAPIAuth.Classi.SmsHosting
         public int limit { get; set; }
     }
 
-public class SmsHostingCheckMessageResponseSms
+    public class SmsHostingCheckMessageResponseSms
     {
         [JsonProperty("id")]
         public long id { get; set; }
@@ -91,7 +91,8 @@ public class SmsHostingCheckMessageResponseSms
     }
 
 
-    public class SmsHostingCreditResponse{
+    public class SmsHostingCreditResponse
+    {
         [JsonProperty("cost")]
         public decimal Cost { get; set; }
         [JsonProperty("userCredit")]
@@ -106,7 +107,7 @@ public class SmsHostingCheckMessageResponseSms
         public int ErrorCode { get; set; }
     }
 
-public class SmsHostingHandler
+    public class SmsHostingHandler
     {
         private static Logger.FileLogger logger = new Logger.FileLogger("SMSHOSTING");
         private static string AUTH_KEY = "SMSHFKEJ2F5PCJIMDIL7K";
@@ -133,10 +134,13 @@ public class SmsHostingHandler
             request.AddParameter("sandbox", "false");
             // request.AddParameter("statusCallback", "https://www.pranio.it");
             IRestResponse response = client.Execute(request);
-            logger.Log(response.Content);
 
             SmsHostingResponse sentSMSResponse =
                 JsonConvert.DeserializeObject<SmsHostingResponse>(response.Content);
+            string esito = sentSMSResponse.sms.Any() ? sentSMSResponse.sms.First().Status : "NESSUN INVIO";
+            string errore = sentSMSResponse.ErrorCode !=0 ? sentSMSResponse.ErrorMsg : "NESSUN ERRORE";
+            logger.Log($"INVIO A {recipient} ESITO {esito} ERRORE {errore} {response.Content}");
+
             return sentSMSResponse;
 
             // { "errorMsg":"BAD_CREDENTIALS","errorCode":401}
@@ -147,7 +151,8 @@ public class SmsHostingHandler
             // "smsInserted":0,"smsNotInserted":0,"sms":[]}
         }
 
-        public static SmsHostingCheckMessageResponse CheckSms(string Id){
+        public static SmsHostingCheckMessageResponse CheckSms(string Id)
+        {
             var client = new RestClient($"https://api.smshosting.it/rest/api/sms/search?id={Id}");
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
@@ -156,6 +161,10 @@ public class SmsHostingHandler
             logger.Log(response.Content);
             SmsHostingCheckMessageResponse checkSMSResponse =
                 JsonConvert.DeserializeObject<SmsHostingCheckMessageResponse>(response.Content);
+            string esito = checkSMSResponse.SmsList.Any() ? checkSMSResponse.SmsList.First().status : "NESSUN INVIO";
+            string destinatario = checkSMSResponse.SmsList.Any() ? checkSMSResponse.SmsList.First().to : "NESSUN INVIO";
+            string errore = checkSMSResponse.ErrorCode != 0 ? checkSMSResponse.ErrorMsg : "NESSUN ERRORE";
+            logger.Log($"CHECK SMS A {destinatario} ESITO {esito} ERRORE {errore} {response.Content}");
             return checkSMSResponse;
         }
 
